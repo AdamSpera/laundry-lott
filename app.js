@@ -1,3 +1,4 @@
+require('dotenv').config();
 var logwrite = require('logwrite');
 var express = require('express');
 var mysql = require('mysql');
@@ -9,10 +10,10 @@ var server = app.listen(80, '0.0.0.0', function () {
 })
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '1472',
-    database: 'databaseths'
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 });
 
 connection.connect(function (error) {
