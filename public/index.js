@@ -11,9 +11,11 @@ $(document).ready(function ($) {
     }, 275);
 });
 
-if ((Math.floor(Math.random() * 100) + 1) < 15) { textDisplay.innerText = 'Remember to report outagaes by clicking on the footer!'; }
+if ((Math.floor(Math.random() * 100) + 1) < 15) {
+    textDisplay.innerText = 'Remember to report outagaes by clicking on the footer!';
+}
 
-btnStart.addEventListener('click', function () {
+document.getElementById('btnStart').addEventListener('click', function () {
 
     $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
 
@@ -31,7 +33,7 @@ btnStart.addEventListener('click', function () {
 
 });
 
-btnFinish.addEventListener('click', function () {
+document.getElementById('btnFinish').addEventListener('click', function () {
 
     $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
 
@@ -63,4 +65,4 @@ footer.addEventListener('click', function () {
 
 });
 
-btnView.addEventListener('click', function () { location.href = '/view' });
+document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });
