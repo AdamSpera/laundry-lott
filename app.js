@@ -26,7 +26,7 @@ connection.connect(function (error) {
 
 app.get('/', function (req, res) {
     logwrite.go(`[0]: Get request recieved at '/'`);
-    res.sendFile('index.html', { root: __dirname });
+    res.sendFile('public/index.html', { root: __dirname });
 })
 app.get('/view', function (req, res) {
     logwrite.go(`[0.3]: Get request recieved at '/view'`);
