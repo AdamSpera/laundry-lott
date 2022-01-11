@@ -84,7 +84,7 @@ Welcome to the README file for the Laundry Lott repository. This file serves as 
 ## --- v0.8.1 ---
 - Step 38: Added consent to privacy policy button
   - Linked privacy policy to new html page no javascript
-#--- v0.9.0 ---
+# --- v0.9.0 ---
 - Step 39: Initialize new GitHub repository
 - Step 40: Remove forgot username
 - Step 41: Remove create account
