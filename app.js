@@ -38,7 +38,7 @@ app.get('/loadView', function (req, res) {
 
     let viewData='';
 
-    connection.query('SELECT Status FROM `databaseths`.`machinestatus`', function (err, result, fields) {
+    connection.query('SELECT Status FROM `' + process.env.DATABASE + '`.`machinestatus`', function (err, result, fields) {
         if (!!err) {
             logwrite.go(`[0.1.1]: Error from Query (DUPLICATE PK/NN): "SELECT Status FROM..."`);
             res.send(`[0.1.1]: Error from Query (DUPLICATE PK/NN): "SELECT Status FROM..."`);
@@ -73,7 +73,7 @@ app.post('/start', (req, res) => {
         if (body) {
             // address acquired
 
-            connection.query("SELECT identifier FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // new user
                     logwrite.go('[1.1]: New user detected');
@@ -82,7 +82,7 @@ app.post('/start', (req, res) => {
                     var time = today.getHours() + ":" + today.getMinutes()
 
                     // creates account and sets startTime for new user
-                    connection.query("INSERT INTO `databaseths`.`userinfo` (`identifier`, `startTime`) VALUES ('" + body + "', '" + time + "');", function (err, result, field) {
+                    connection.query("INSERT INTO `" + process.env.DATABASE + "`.`userinfo` (`identifier`, `startTime`) VALUES ('" + body + "', '" + time + "');", function (err, result, field) {
                         if (!!err) {
                             logwrite.go('[1.2]: Error creating account');
                             res.send('Sorry! there was an issue creating your account. Try reloading.');
@@ -90,7 +90,7 @@ app.post('/start', (req, res) => {
                             logwrite.go('[1.2]: Success creating account and setting time.');
 
                             // updates machine status to in use
-                            connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
+                            connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                 if (!!err) {
                                     console.log('[1.4]: Error updating machine status');
                                 } else {
@@ -106,7 +106,7 @@ app.post('/start', (req, res) => {
                     logwrite.go('[1.1]: Existing user detected');
 
                     // check if tickets < 4
-                    connection.query("SELECT tickets FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+                    connection.query("SELECT tickets FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].tickets === 0 || result[0].tickets === 1 || result[0].tickets === 2 || result[0].tickets === 3) {
                             // Tickets < 4
 
@@ -114,7 +114,7 @@ app.post('/start', (req, res) => {
                             var time = today.getHours() + ":" + today.getMinutes()
 
                             // sets startTime for existing user
-                            connection.query("UPDATE `databaseths`.`userinfo` SET `startTime` = '" + time + "' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                            connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '" + time + "' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                 if (!!err) {
                                     logwrite.go('[1.3]: Error updating startTime');
                                     res.send('Sorry! There was a problem updating the time. Try restarting.');
@@ -122,7 +122,7 @@ app.post('/start', (req, res) => {
                                     logwrite.go('[1.3]: Successful updating startTime');
 
                                     // updates machine status to in use
-                                    connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
+                                    connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                         if (!!err) {
                                             logwrite.go('[1.4]: Error updating machine status');
                                         } else {
@@ -166,7 +166,7 @@ app.post('/finish', (req, res) => {
             logwrite.go('[2]: ip acquired')
 
             // user have account ?
-            connection.query("SELECT identifier FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // user not found
                     logwrite.go('[2.2]: User not found in db');
@@ -176,7 +176,7 @@ app.post('/finish', (req, res) => {
                     logwrite.go('[2.2]: User found in db');
 
                     // user have startTime ?
-                    connection.query("SELECT startTime FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+                    connection.query("SELECT startTime FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].startTime === null || result[0].startTime === '') {
                             // startTime not detected
                             logwrite.go('[2.3]: startTime not found in db');
@@ -205,19 +205,19 @@ app.post('/finish', (req, res) => {
                             if (finalMinutes <= 45 && finalMinutes <= 55) {
                                 logwrite.go('[2.6]: User checked in on time');
                                 //made it on time
-                                connection.query("UPDATE `databaseths`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                                connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                     if (!!err) {
                                         logwrite.go('[2.4]: Error adding to tickets');
                                     } else {
                                         logwrite.go('[2.4]: Successful added ticket');
                                         // removing startTime
-                                        connection.query("UPDATE `databaseths`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                                        connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                             if (!!err) {
                                                 logwrite.go('[2.4]: Error removing startTime');
                                             } else {
                                                 logwrite.go('[2.4]: Successful remove startTime');
                                                 // updates machine status to in use
-                                                connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
+                                                connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                                     if (!!err) {
                                                         logwrite.go('[2.5]: Error updating machine status');
                                                     } else {
@@ -233,7 +233,7 @@ app.post('/finish', (req, res) => {
                                 // user is too late
 
                                 // updates machine status to in use
-                                connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
+                                connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                     if (!!err) {
                                         logwrite.go('[2.6]: Error updating machine status');
                                     } else {
@@ -267,7 +267,7 @@ app.post('/report', (req, res) => {
     req.on('end', function () {
         logwrite.go(`[3]: Post request recieved at '/report' (${body})`);
 
-        connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Out of Order' WHERE (`ID` = '" + body + "');", function (err, result, fields) {
+        connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Out of Order' WHERE (`ID` = '" + body + "');", function (err, result, fields) {
             if (!!err) {
                 logwrite.go('[3.1]: Error updating machine status');
             } else {
