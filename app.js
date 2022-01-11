@@ -18,32 +18,32 @@ var connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (!!error) {
-        console.log(error);
+        logwrite.go(error);
     } else {
-        console.log('Database Connected');
+        logwrite.go('Database Connected');
     }
 })
 
 app.get('/', function (req, res) {
-    console.log(`[0]: Get request recieved at '/'`);
+    logwrite.go(`[0]: Get request recieved at '/'`);
     res.sendFile('index.html', { root: __dirname });
 })
 app.get('/view', function (req, res) {
-    console.log(`[0.3]: Get request recieved at '/view'`);
+    logwrite.go(`[0.3]: Get request recieved at '/view'`);
     res.sendFile('public/view.html', { root: __dirname });
 })
 
 app.get('/loadView', function (req, res) {
-    console.log(`[0.1]: Get request recieved at '/loadView'`);
+    logwrite.go(`[0.1]: Get request recieved at '/loadView'`);
 
     let viewData='';
 
     connection.query('SELECT Status FROM `databaseths`.`machinestatus`', function (err, result, fields) {
         if (!!err) {
-            console.log(`[0.1.1]: Error from Query (DUPLICATE PK/NN): "SELECT Status FROM..."`);
+            logwrite.go(`[0.1.1]: Error from Query (DUPLICATE PK/NN): "SELECT Status FROM..."`);
             res.send(`[0.1.1]: Error from Query (DUPLICATE PK/NN): "SELECT Status FROM..."`);
         } else {
-            console.log(`[0.1.1]: Successful Query: "SELECT Status FROM..."`);
+            logwrite.go(`[0.1.1]: Successful Query: "SELECT Status FROM..."`);
 
             for (let i = 0; i < result.length; i++) {
                 if (result[i].Status === 'Available') {
@@ -125,9 +125,9 @@ app.post('/start', (req, res) => {
                                     // updates machine status to in use
                                     connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                         if (!!err) {
-                                            console.log('[1.4]: Error updating machine status');
+                                            logwrite.go('[1.4]: Error updating machine status');
                                         } else {
-                                            console.log('[1.4]: Successful updating machine status');
+                                            logwrite.go('[1.4]: Successful updating machine status');
                                         }
                                     });
 
@@ -137,7 +137,7 @@ app.post('/start', (req, res) => {
 
                         } else {
                             //Tickets > 4
-                            console.log('[1.3]: Tickets over 4')
+                            logwrite.go('[1.3]: Tickets over 4')
                             res.send('Woah Woah! You already got 4 tickets this week. Come back next week for more!')
                         }
                     })
@@ -164,27 +164,27 @@ app.post('/finish', (req, res) => {
 
         if (body) {
             // address acquired
-            console.log('[2]: ip acquired')
+            logwrite.go('[2]: ip acquired')
 
             // user have account ?
             connection.query("SELECT identifier FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // user not found
-                    console.log('[2.2]: User not found in db');
+                    logwrite.go('[2.2]: User not found in db');
                     res.send('Sorry! No user found! Try starting a load first!');
                 } else {
                     // user found
-                    console.log('[2.2]: User found in db');
+                    logwrite.go('[2.2]: User found in db');
 
                     // user have startTime ?
                     connection.query("SELECT startTime FROM databaseths.userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].startTime === null || result[0].startTime === '') {
                             // startTime not detected
-                            console.log('[2.3]: startTime not found in db');
+                            logwrite.go('[2.3]: startTime not found in db');
                             res.send('No start time found, try starting a load first!');
                         } else {
                             // startTime found
-                            console.log('[2.3]: startTime found in db');
+                            logwrite.go('[2.3]: startTime found in db');
 
                             //verify if time is back in time
                             let finalMinutes;
@@ -204,25 +204,25 @@ app.post('/finish', (req, res) => {
                             } else { finalMinutes = startMinutes - endMinutes }
 
                             if (finalMinutes <= 45 && finalMinutes <= 55) {
-                                console.log('[2.6]: User checked in on time');
+                                logwrite.go('[2.6]: User checked in on time');
                                 //made it on time
                                 connection.query("UPDATE `databaseths`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                     if (!!err) {
-                                        console.log('[2.4]: Error adding to tickets');
+                                        logwrite.go('[2.4]: Error adding to tickets');
                                     } else {
-                                        console.log('[2.4]: Successful added ticket');
+                                        logwrite.go('[2.4]: Successful added ticket');
                                         // removing startTime
                                         connection.query("UPDATE `databaseths`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                             if (!!err) {
-                                                console.log('[2.4]: Error removing startTime');
+                                                logwrite.go('[2.4]: Error removing startTime');
                                             } else {
-                                                console.log('[2.4]: Successful remove startTime');
+                                                logwrite.go('[2.4]: Successful remove startTime');
                                                 // updates machine status to in use
                                                 connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                                     if (!!err) {
-                                                        console.log('[2.5]: Error updating machine status');
+                                                        logwrite.go('[2.5]: Error updating machine status');
                                                     } else {
-                                                        console.log('[2.5]: Successful updating machine status');
+                                                        logwrite.go('[2.5]: Successful updating machine status');
                                                     }
                                                 });
                                             }
@@ -236,16 +236,16 @@ app.post('/finish', (req, res) => {
                                 // updates machine status to in use
                                 connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                     if (!!err) {
-                                        console.log('[2.6]: Error updating machine status');
+                                        logwrite.go('[2.6]: Error updating machine status');
                                     } else {
-                                        console.log('[2.6]: Successful updating machine status');
+                                        logwrite.go('[2.6]: Successful updating machine status');
                                     }
                                 });
-                                console.log('[2.6]: User checked in too late');
+                                logwrite.go('[2.6]: User checked in too late');
                                 res.send('Sorry! Your too late! Come back for another load!');
                             } else if (finalMinutes < 45) {
                                 // too early
-                                console.log('[2.6]: User checked in too late');
+                                logwrite.go('[2.6]: User checked in too late');
                                 res.send('Sorry! Your too early! Come back soon!');
                             }
 
