@@ -100,3 +100,6 @@ Welcome to the README file for the Laundry Lott repository. This file serves as 
 # --- v0.10.0 ---
 - Step 60: Inserted CSS into index
 - Step 61: Inserted CSS into view
+## --- v0.10.1 ---
+- Step 62: Added report onclikc of footer
+- Step 63: Added random popup for report notification
