@@ -62,7 +62,6 @@ app.get('/loadView', function (req, res) {
 
 })
 
-
 app.post('/start', (req, res) => {
     let body = ''; req.on('data', function (chunk) { body += chunk; });
     req.on('end', function () {
@@ -259,6 +258,22 @@ app.post('/finish', (req, res) => {
             logwrite.go('[2.1]: Start fields invalid');
             res.send('Sorry, there was a issue identifying you. Try reloading.');
         }
+
+    })
+})
+
+app.post('/report', (req, res) => {
+    let body = ''; req.on('data', function (chunk) { body += chunk; });
+    req.on('end', function () {
+        logwrite.go(`[3]: Post request recieved at '/report' (${body})`);
+
+        connection.query("UPDATE `databaseths`.`machinestatus` SET `Status` = 'Out of Order' WHERE (`ID` = '" + body + "');", function (err, result, fields) {
+            if (!!err) {
+                logwrite.go('[3.1]: Error updating machine status');
+            } else {
+                logwrite.go('[3.1]: Successful updating machine status');
+            }
+        });
 
     })
 })

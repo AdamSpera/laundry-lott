@@ -3,12 +3,15 @@ var btnStart = document.getElementById('btnStart');
 var btnFinish = document.getElementById('btnFinish');
 var btnView = document.getElementById('btnView');
 var textDisplay = document.getElementById('textDisplay');
+var footer = document.getElementById('footer');
 
 $(document).ready(function ($) {
     setTimeout(function () {
         $('.trans--grow').addClass('grow');
     }, 275);
 });
+
+if ((Math.floor(Math.random() * 100) + 1) < 15) { textDisplay.innerText = 'Remember to report outagaes by clicking on the footer!'; }
 
 btnStart.addEventListener('click', function () {
 
@@ -43,6 +46,20 @@ btnFinish.addEventListener('click', function () {
         } else { textDisplay.innerText = 'Enter a Machine Id above!' }
 
     });
+
+});
+
+footer.addEventListener('click', function () {
+
+    let id = machine.value.toUpperCase();
+    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
+        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+
+        fetch('/report', { method: 'POST', body: id })
+            .then(response => response.text())
+            .then(text => { textDisplay.innerText = text })
+
+    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
 
 });
 
