@@ -13,9 +13,17 @@ $(document).ready(function ($) {
 btnStart.addEventListener('click', function () {
 
     $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
-        fetch('/start', { method: 'POST', body: machine.value + data.ip })
-            .then(response => response.text())
-            .then(text => { textDisplay.innerText = text })
+
+        let id = machine.value.toUpperCase();
+        if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
+            || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+
+            fetch('/start', { method: 'POST', body: id + data.ip })
+                .then(response => response.text())
+                .then(text => { textDisplay.innerText = text })
+
+        } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+
     });
 
 });
@@ -23,9 +31,17 @@ btnStart.addEventListener('click', function () {
 btnFinish.addEventListener('click', function () {
 
     $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
-        fetch('/finish', { method: 'POST', body: machine.value + data.ip })
-            .then(response => response.text())
-            .then(text => { textDisplay.innerText = text })
+
+        let id = machine.value.toUpperCase();
+        if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
+            || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+
+            fetch('/finish', { method: 'POST', body: id + data.ip })
+                .then(response => response.text())
+                .then(text => { textDisplay.innerText = text })
+
+        } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+
     });
 
 });

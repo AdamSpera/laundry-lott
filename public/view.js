@@ -1,3 +1,4 @@
+var home = document.getElementById('home')
 var machines = [
     document.getElementById('machineA'), 
     document.getElementById('machineB'),
@@ -25,13 +26,13 @@ fetch('/loadView', { method: 'GET' })
         } else if (text[i] === '2') {
             viewData.push('Out of Order');
         }
-        machines[i].innerText = `[${IDs[i]}]: ${viewData[i]}`;
+        machines[i].innerText = `${IDs[i]}: ${viewData[i]}`;
 
-        if (machines[i].innerText === `[${IDs[i]}]: Available`) {
+        if (machines[i].innerText === `${IDs[i]}: Available`) {
             machines[i].style.fontWeight = "800";
-        } else if (machines[i].innerText === `[${IDs[i]}]: Out of Order`) {
+        } else if (machines[i].innerText === `${IDs[i]}: Out of Order`) {
             machines[i].style.color = "#dac777";
-        } else if (machines[i].innerText === `[${IDs[i]}]: In Use`) {
+        } else if (machines[i].innerText === `${IDs[i]}: In Use`) {
             machines[i].style.fontWeight = "500";
         }
 
@@ -39,3 +40,5 @@ fetch('/loadView', { method: 'GET' })
 
 
 })
+
+home.addEventListener('click', function () { location.href = '/' });

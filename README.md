@@ -97,3 +97,6 @@ Welcome to the README file for the Laundry Lott repository. This file serves as 
 - Step 48: Added userinfo identifier
 - Step 49: Program ip collection as identifier
 - Step 50: Added dotenv support protection
+# --- v0.10.0 ---
+- Step 60: Inserted CSS into index
+- Step 61: Inserted CSS into view
