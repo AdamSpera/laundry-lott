@@ -1,0 +1,46 @@
+body {
+    background-color: #fff1b0;
+}
+
+.btnSolidIndex {
+    background-color: #110c00;
+    color: #ffffff;
+    font-family: 'Arial';
+    font-size: 1.3em;
+    font-weight: 600;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.footer h4{
+    color: #b9a446;
+    position:absolute;
+    left:0px;
+    bottom:20px;
+    right:0px;
+    margin-bottom:0px;
+    font-size: 0.8em;
+}
+.footer2 h4{
+    color: #b9a446;
+    position:absolute;
+    left:0px;
+    bottom:10px;
+    right:0px;
+    margin-bottom:0px;
+    font-size: 0.5em;
+}
+  
+.footer a {
+    color: #b29500;
+}
+.footer2 a {
+    color: #b29500;
+}
+
+.title {
+    margin-bottom:35px;
+    font-family: Rockwell;
+    font-weight: bold;
+}
