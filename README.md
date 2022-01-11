@@ -90,10 +90,10 @@ Welcome to the README file for the Laundry Lott repository. This file serves as 
 - Step 41: Remove create account
 - Step 42: Remove start load
 - Step 43: Remove finish load
-- Step 44: Remove userinfo username
-- Step 45: Remove userinfo email
-- Step 46: Remove userinfo id
-- Step 47: Remove userinfo username
-- Step 48: Added machine id field to index
-- Step 49: Added userinfo identifier
-- Step 50: Program ip collection as identifier
+- Step 44: Remove userinfo email
+- Step 45: Remove userinfo id
+- Step 46: Remove userinfo username
+- Step 47: Added machine id field to index
+- Step 48: Added userinfo identifier
+- Step 49: Program ip collection as identifier
+- Step 50: Added dotenv support protection
