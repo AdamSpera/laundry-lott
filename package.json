@@ -9,6 +9,7 @@
   "author": "Adam T Spera",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "logwrite": "^1.0.0",

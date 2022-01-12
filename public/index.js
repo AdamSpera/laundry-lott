@@ -17,37 +17,31 @@ if ((Math.floor(Math.random() * 100) + 1) < 15) {
 
 document.getElementById('btnStart').addEventListener('click', function () {
 
-    $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
+    let id = machine.value.toUpperCase();
+    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
+        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
 
-        let id = machine.value.toUpperCase();
-        if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
-            || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+        fetch('/start', { method: 'POST', body: id })
+            .then(response => response.text())
+            .then(text => { textDisplay.innerText = text })
 
-            fetch('/start', { method: 'POST', body: id + data.ip })
-                .then(response => response.text())
-                .then(text => { textDisplay.innerText = text })
-
-        } else { textDisplay.innerText = 'Enter a Machine Id above!' }
-
-    });
+    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
 
 });
 
 document.getElementById('btnFinish').addEventListener('click', function () {
 
-    $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
 
-        let id = machine.value.toUpperCase();
-        if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
-            || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+    let id = machine.value.toUpperCase();
+    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
+        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
 
-            fetch('/finish', { method: 'POST', body: id + data.ip })
-                .then(response => response.text())
-                .then(text => { textDisplay.innerText = text })
+        fetch('/finish', { method: 'POST', body: id })
+            .then(response => response.text())
+            .then(text => { textDisplay.innerText = text })
 
-        } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
 
-    });
 
 });
 

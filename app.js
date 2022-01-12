@@ -1,8 +1,11 @@
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 var logwrite = require('logwrite');
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
+
+app.use(cookieParser());
 
 app.use(express.static('public'));
 var server = app.listen(80, '0.0.0.0', function () {
@@ -26,6 +29,13 @@ connection.connect(function (error) {
 
 app.get('/', function (req, res) {
     logwrite.go(`[0]: Get request recieved at '/'`);
+
+    var today = new Date();
+    var date = today.getFullYear()+'.'+(today.getMonth()+1)+'.'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+'/'+time;
+
+    res.cookie(`CookieToken`,`${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`);
     res.sendFile('public/index.html', { root: __dirname });
 })
 app.get('/view', function (req, res) {
@@ -67,8 +77,11 @@ app.post('/start', (req, res) => {
     req.on('end', function () {
         logwrite.go(`[1]: Post request recieved at '/start' (${body})`);
 
-        let machineId = body[0];
-        body = body.substring(1);
+        let machineId = body;
+        body = JSON.stringify(req.cookies);
+        body = body.replace('}', '');
+        body = body.replace('{', '');
+        logwrite.go(body);
 
         if (body) {
             // address acquired
@@ -92,9 +105,9 @@ app.post('/start', (req, res) => {
                             // updates machine status to in use
                             connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                 if (!!err) {
-                                    console.log('[1.4]: Error updating machine status');
+                                    logwrite.go('[1.4]: Error updating machine status');
                                 } else {
-                                    console.log('[1.4]: Successful updating machine status');
+                                    logwrite.go('[1.4]: Successful updating machine status');
                                 }
                             });
                             res.send('Great! Come back in 45-55 minutes to claim your ticket!');
@@ -158,8 +171,11 @@ app.post('/finish', (req, res) => {
     req.on('end', function () {
         logwrite.go(`[2]: Post request recieved at '/start' (${body})`);
 
-        let machineId = body[0];
-        body = body.substring(1);
+        let machineId = body;
+        body = JSON.stringify(req.cookies);
+        body = body.replace('}', '');
+        body = body.replace('{', '');
+        logwrite.go(body);
 
         if (body) {
             // address acquired
