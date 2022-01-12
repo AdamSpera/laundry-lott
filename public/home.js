@@ -12,7 +12,7 @@ $(document).ready(function ($) {
 });
 
 if ((Math.floor(Math.random() * 100) + 1) < 15) {
-    textDisplay.innerText = 'Remember to report outagaes by clicking on the footer!';
+    textDisplay.innerText = 'Remember to report broken machines by clicking on the footer!';
 }
 
 document.getElementById('btnStart').addEventListener('click', function () {
@@ -25,7 +25,7 @@ document.getElementById('btnStart').addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!'; textDisplay.style.color="red" }
 
 });
 
@@ -39,7 +39,7 @@ document.getElementById('btnFinish').addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!' }
 
 });
 
@@ -53,7 +53,7 @@ footer.addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine Id above!' }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!' }
 
 });
 
