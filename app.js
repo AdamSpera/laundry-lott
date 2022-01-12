@@ -36,13 +36,13 @@ app.get('/', function (req, res) {
     var dateTime = date + '/' + time;
 
     if (req.cookies.CookieToken) {
-        console.log('Cookie Detected');
+        logwrite.go('[/]: Cookie Detected');
      } else {
-        console.log('Cookie Not Detected - Generating Cookie');
+        logwrite.go('[/]: Cookie Not Detected - Generating Cookie');
         res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`);
     }
 
-    res.sendFile('public/main.html', { root: __dirname });
+    res.sendFile('public/home.html', { root: __dirname });
 })
 app.get('/view', function (req, res) {
     logwrite.go(`[0.3]: Get request recieved at '/view'`);
@@ -83,18 +83,15 @@ app.post('/start', (req, res) => {
     req.on('end', function () {
         logwrite.go(`[1]: Post request recieved at '/start' (${body})`);
 
-        console.log(req.cookies);
-
         let machineId = body;
         body = JSON.stringify(req.cookies);
         body = body.replace('}', '');
         body = body.replace('{', '');
-        logwrite.go(body);
 
         if (body) {
             // address acquired
 
-            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // new user
                     logwrite.go('[1.1]: New user detected');
@@ -127,7 +124,7 @@ app.post('/start', (req, res) => {
                     logwrite.go('[1.1]: Existing user detected');
 
                     // check if tickets < 4
-                    connection.query("SELECT tickets FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+                    connection.query("SELECT tickets FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].tickets === 0 || result[0].tickets === 1 || result[0].tickets === 2 || result[0].tickets === 3) {
                             // Tickets < 4
 
@@ -183,14 +180,13 @@ app.post('/finish', (req, res) => {
         body = JSON.stringify(req.cookies);
         body = body.replace('}', '');
         body = body.replace('{', '');
-        logwrite.go(body);
 
         if (body) {
             // address acquired
             logwrite.go('[2]: ip acquired')
 
             // user have account ?
-            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+            connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // user not found
                     logwrite.go('[2.2]: User not found in db');
@@ -200,7 +196,7 @@ app.post('/finish', (req, res) => {
                     logwrite.go('[2.2]: User found in db');
 
                     // user have startTime ?
-                    connection.query("SELECT startTime FROM " + process.env.DATABASE + ".userInfo WHERE identifier = '" + body + "'", function (err, result, field) {
+                    connection.query("SELECT startTime FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].startTime === null || result[0].startTime === '') {
                             // startTime not detected
                             logwrite.go('[2.3]: startTime not found in db');
