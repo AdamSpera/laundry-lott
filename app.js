@@ -39,7 +39,9 @@ app.get('/', function (req, res) {
         logwrite.go('[/]: Cookie Detected');
      } else {
         logwrite.go('[/]: Cookie Not Detected - Generating Cookie');
-        res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`);
+        res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`, {
+            expires: new Date('05 25 2022')
+        });
     }
 
     res.sendFile('public/home.html', { root: __dirname });
@@ -292,6 +294,7 @@ app.post('/report', (req, res) => {
                 logwrite.go('[3.1]: Error updating machine status');
             } else {
                 logwrite.go('[3.1]: Successful updating machine status');
+                res.send('Thanks for reporting!');
             }
         });
 
