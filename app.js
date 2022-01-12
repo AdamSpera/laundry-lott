@@ -31,12 +31,18 @@ app.get('/', function (req, res) {
     logwrite.go(`[0]: Get request recieved at '/'`);
 
     var today = new Date();
-    var date = today.getFullYear()+'.'+(today.getMonth()+1)+'.'+today.getDate();
+    var date = today.getFullYear() + '.' + (today.getMonth() + 1) + '.' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+'/'+time;
+    var dateTime = date + '/' + time;
 
-    res.cookie(`CookieToken`,`${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`);
-    res.sendFile('public/index.html', { root: __dirname });
+    if (req.cookies.CookieToken) {
+        console.log('Cookie Detected');
+     } else {
+        console.log('Cookie Not Detected - Generating Cookie');
+        res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`);
+    }
+
+    res.sendFile('public/main.html', { root: __dirname });
 })
 app.get('/view', function (req, res) {
     logwrite.go(`[0.3]: Get request recieved at '/view'`);
@@ -76,6 +82,8 @@ app.post('/start', (req, res) => {
     let body = ''; req.on('data', function (chunk) { body += chunk; });
     req.on('end', function () {
         logwrite.go(`[1]: Post request recieved at '/start' (${body})`);
+
+        console.log(req.cookies);
 
         let machineId = body;
         body = JSON.stringify(req.cookies);

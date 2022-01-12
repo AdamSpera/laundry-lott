@@ -31,7 +31,6 @@ document.getElementById('btnStart').addEventListener('click', function () {
 
 document.getElementById('btnFinish').addEventListener('click', function () {
 
-
     let id = machine.value.toUpperCase();
     if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
         || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
@@ -41,7 +40,6 @@ document.getElementById('btnFinish').addEventListener('click', function () {
             .then(text => { textDisplay.innerText = text })
 
     } else { textDisplay.innerText = 'Enter a Machine Id above!' }
-
 
 });
 
