@@ -1,17 +1,11 @@
-# laundry-lott
-Project repository for Laundry Lott
+# Introduction
+Project repository for LaundryLott web app. Powered by JavaScript, mySQL Database and Oracle Cloud.
 
-Welcome to the README file for the Laundry Lott repository. This file serves as a documented proccess of the development of Laundry Lott.
-- Step 1: Learn JavaScipt
-  - Hangman Game
-- Step 2: Learn Node.js
-- Step 3: Learn Express.js
-  - Encryption and RPS
-- Step 4: Learn AJAX
-- Step 5: Learn Socket.io
-  - Websocket Chat App
-- Step 6: Learn mySQL 
-  - DBLogin and Sign-Up App
+With LaundryLott students enter a lottery for real money every week simply by chnaging over their laundry on time, and in the process helping colleges and communities by providing live laundry room status updates automatically.
+
+Utilizing Oracle Cloud and Cloudflare to host the web app, with HTML, CSS, and Bootstrap on front end, and JavaScript, mySQL, Git, and custom Logwrite NPM package in the back end.
+
+For sustainability, LaundryLott uses low tier virtual machines and dns hosting to sustain affordability while not having to compromize on connectivity and latency.
 
 # --- v0.0.0 ---
 - Step 1: Set up mySQL Database
