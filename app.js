@@ -32,8 +32,8 @@ app.get('/', function (req, res) {
 
     var today = new Date();
     var date = today.getFullYear() + '.' + (today.getMonth() + 1) + '.' + today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date + '/' + time;
+    var time = today.getHours() + "." + today.getMinutes() + "." + today.getSeconds();
+    var dateTime = date + '-' + time;
 
     if (req.cookies.CookieToken) {
         logwrite.go('[/]: Cookie Detected');
@@ -89,6 +89,7 @@ app.post('/start', (req, res) => {
         body = JSON.stringify(req.cookies);
         body = body.replace('}', '');
         body = body.replace('{', '');
+        let printCookie = ((body.split(':'))[1].replace('"', '')).replace('"', '');
 
         if (body) {
             // address acquired
@@ -96,7 +97,7 @@ app.post('/start', (req, res) => {
             connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // new user
-                    logwrite.go('[1.1]: New user detected');
+                    logwrite.go('[1.1] ['+((body.split(':'))[1].replace('"', '')).replace('"', '')+']: New user detected');
 
                     var today = new Date();
                     var time = today.getHours() + ":" + today.getMinutes()
@@ -104,17 +105,17 @@ app.post('/start', (req, res) => {
                     // creates account and sets startTime for new user
                     connection.query("INSERT INTO `" + process.env.DATABASE + "`.`userinfo` (`identifier`, `startTime`) VALUES ('" + body + "', '" + time + "');", function (err, result, field) {
                         if (!!err) {
-                            logwrite.go('[1.2]: Error creating account');
+                            logwrite.go('[1.2] ['+printCookie+']: Error creating account');
                             res.send('Sorry! there was an issue creating your account. Try reloading.');
                         } else {
-                            logwrite.go('[1.2]: Success creating account and setting time.');
+                            logwrite.go('[1.2] ['+printCookie+']: Success creating account and setting time.');
 
                             // updates machine status to in use
                             connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                 if (!!err) {
-                                    logwrite.go('[1.4]: Error updating machine status');
+                                    logwrite.go('[1.4] ['+printCookie+']: Error updating machine status');
                                 } else {
-                                    logwrite.go('[1.4]: Successful updating machine status');
+                                    logwrite.go('[1.4] ['+printCookie+']: Successful updating machine status');
                                 }
                             });
                             res.send('Great! Come back in 45-55 minutes to claim your ticket!');
@@ -123,7 +124,7 @@ app.post('/start', (req, res) => {
 
                 } else {
                     // existing user
-                    logwrite.go('[1.1]: Existing user detected');
+                    logwrite.go('[1.1] ['+printCookie+']: Existing user detected');
 
                     // check if tickets < 4
                     connection.query("SELECT tickets FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
@@ -136,17 +137,17 @@ app.post('/start', (req, res) => {
                             // sets startTime for existing user
                             connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '" + time + "' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                 if (!!err) {
-                                    logwrite.go('[1.3]: Error updating startTime');
+                                    logwrite.go('[1.3] ['+printCookie+']: Error updating startTime');
                                     res.send('Sorry! There was a problem updating the time. Try restarting.');
                                 } else {
-                                    logwrite.go('[1.3]: Successful updating startTime');
+                                    logwrite.go('[1.3] ['+printCookie+']: Successful updating startTime');
 
                                     // updates machine status to in use
                                     connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                         if (!!err) {
-                                            logwrite.go('[1.4]: Error updating machine status');
+                                            logwrite.go('[1.4] ['+printCookie+']: Error updating machine status');
                                         } else {
-                                            logwrite.go('[1.4]: Successful updating machine status');
+                                            logwrite.go('[1.4] ['+printCookie+']: Successful updating machine status');
                                         }
                                     });
 
@@ -156,7 +157,7 @@ app.post('/start', (req, res) => {
 
                         } else {
                             //Tickets > 4
-                            logwrite.go('[1.3]: Tickets over 4')
+                            logwrite.go('[1.3] ['+printCookie+']: Tickets over 4')
                             res.send('Woah Woah! You already got 4 tickets this week. Come back next week for more!')
                         }
                     })
@@ -166,7 +167,7 @@ app.post('/start', (req, res) => {
 
         } else {
             // address not acquired
-            logwrite.go('[1.2]: Start fields invalid');
+            logwrite.go('[1.2] ['+printCookie+']: Start fields invalid');
             res.send('Sorry, there was a issue identifying you. Try reloading.');
         }
 
@@ -182,30 +183,31 @@ app.post('/finish', (req, res) => {
         body = JSON.stringify(req.cookies);
         body = body.replace('}', '');
         body = body.replace('{', '');
+        let printCookie = ((body.split(':'))[1].replace('"', '')).replace('"', '');
 
         if (body) {
             // address acquired
-            logwrite.go('[2]: ip acquired')
+            logwrite.go('[2] ['+printCookie+']: ip acquired')
 
             // user have account ?
             connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                 if (result.length === 0) {
                     // user not found
-                    logwrite.go('[2.2]: User not found in db');
+                    logwrite.go('[2.2] ['+printCookie+']: User not found in db');
                     res.send('Sorry! No user found! Try starting a load first!');
                 } else {
                     // user found
-                    logwrite.go('[2.2]: User found in db');
+                    logwrite.go('[2.2] ['+printCookie+']: User found in db');
 
                     // user have startTime ?
                     connection.query("SELECT startTime FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
                         if (result[0].startTime === null || result[0].startTime === '') {
                             // startTime not detected
-                            logwrite.go('[2.3]: startTime not found in db');
+                            logwrite.go('[2.3] ['+printCookie+']: startTime not found in db');
                             res.send('No start time found, try starting a load first!');
                         } else {
                             // startTime found
-                            logwrite.go('[2.3]: startTime found in db');
+                            logwrite.go('[2.3] ['+printCookie+']: startTime found in db');
 
                             //verify if time is back in time
                             let finalMinutes;
@@ -225,25 +227,25 @@ app.post('/finish', (req, res) => {
                             } else { finalMinutes = startMinutes - endMinutes }
 
                             if (finalMinutes <= 45 && finalMinutes <= 55) {
-                                logwrite.go('[2.6]: User checked in on time');
+                                logwrite.go('[2.6] ['+printCookie+']: User checked in on time');
                                 //made it on time
                                 connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                     if (!!err) {
-                                        logwrite.go('[2.4]: Error adding to tickets');
+                                        logwrite.go('[2.4] ['+printCookie+']: Error adding to tickets');
                                     } else {
-                                        logwrite.go('[2.4]: Successful added ticket');
+                                        logwrite.go('[2.4] ['+printCookie+']: Successful added ticket');
                                         // removing startTime
                                         connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                             if (!!err) {
-                                                logwrite.go('[2.4]: Error removing startTime');
+                                                logwrite.go('[2.4] ['+printCookie+']: Error removing startTime');
                                             } else {
-                                                logwrite.go('[2.4]: Successful remove startTime');
+                                                logwrite.go('[2.4] ['+printCookie+']: Successful remove startTime');
                                                 // updates machine status to in use
                                                 connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                                     if (!!err) {
-                                                        logwrite.go('[2.5]: Error updating machine status');
+                                                        logwrite.go('[2.5] ['+printCookie+']: Error updating machine status');
                                                     } else {
-                                                        logwrite.go('[2.5]: Successful updating machine status');
+                                                        logwrite.go('[2.5] ['+printCookie+']: Successful updating machine status');
                                                     }
                                                 });
                                             }
@@ -257,16 +259,16 @@ app.post('/finish', (req, res) => {
                                 // updates machine status to in use
                                 connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                     if (!!err) {
-                                        logwrite.go('[2.6]: Error updating machine status');
+                                        logwrite.go('[2.6] ['+printCookie+']: Error updating machine status');
                                     } else {
-                                        logwrite.go('[2.6]: Successful updating machine status');
+                                        logwrite.go('[2.6] ['+printCookie+']: Successful updating machine status');
                                     }
                                 });
-                                logwrite.go('[2.6]: User checked in too late');
+                                logwrite.go('[2.6] ['+printCookie+']: User checked in too late');
                                 res.send('Sorry! Your too late! Come back for another load!');
                             } else if (finalMinutes < 45) {
                                 // too early
-                                logwrite.go('[2.6]: User checked in too late');
+                                logwrite.go('[2.6] ['+printCookie+']: User checked in too late');
                                 res.send('Sorry! Your too early! Come back soon!');
                             }
 
@@ -277,7 +279,7 @@ app.post('/finish', (req, res) => {
 
         } else {
             // address not acquired
-            logwrite.go('[2.1]: Start fields invalid');
+            logwrite.go('[2.1] ['+printCookie+']: Start fields invalid');
             res.send('Sorry, there was a issue identifying you. Try reloading.');
         }
 
