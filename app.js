@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
     var dateTime = date + '-' + time;
 
     if (req.cookies.CookieToken) {
-        logwrite.go('[/]: Cookie Detected');
+        logwrite.go('[/] ['+req.cookies.CookieToken+']: Cookie Detected');
      } else {
         logwrite.go('[/]: Cookie Not Detected - Generating Cookie');
         res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`, {
@@ -181,7 +181,7 @@ app.post('/finish', (req, res) => {
 
         if (body) {
             // address acquired
-            logwrite.go('[2] ['+body+']: ip acquired')
+            logwrite.go('[2] ['+body+']: Cookie acquired')
 
             // user have account ?
             connection.query("SELECT identifier FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
@@ -220,7 +220,7 @@ app.post('/finish', (req, res) => {
                                 finalMinutes = endMinutes - startMinutes
                             } else { finalMinutes = startMinutes - endMinutes }
 
-                            if (finalMinutes <= 45 && finalMinutes <= 55) {
+                            if (finalMinutes >= 45 && finalMinutes <= 55) {
                                 logwrite.go('[2.6] ['+body+']: User checked in on time');
                                 //made it on time
                                 connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
