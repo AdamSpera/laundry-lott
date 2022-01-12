@@ -1,5 +1,7 @@
-# Introduction
+# LaundryLott
 Project repository for LaundryLott web app. Powered by JavaScript, mySQL Database and Oracle Cloud.
+
+## Introduction
 
 With LaundryLott students enter a lottery for real money every week simply by chnaging over their laundry on time, and in the process helping colleges and communities by providing live laundry room status updates automatically.
 
