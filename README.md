@@ -39,7 +39,7 @@ Starting the server for the first time requires the user to input "sudo node app
 Thank you to all these people that served contributions to the LaundryLott project!
 - Quality and Beta Testing: Brynn Lintner
 - Visual Design Contributions: Brey Rivera
-- Guidence and Server Debugging: Vitaly Ford
+- Guidance and Server Debugging: Vitaly Ford
 
 ######  ______
 ###### Contact laundrylott@gmail.com with any questions, concerns, or suggestions. 
