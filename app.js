@@ -5,6 +5,8 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 
+let winningToken = 'winningcookie';
+
 app.use(cookieParser());
 
 app.use(express.static('public'));
@@ -49,6 +51,15 @@ app.get('/', function (req, res) {
 app.get('/view', function (req, res) {
     logwrite.go(`[0.3]: Get request recieved at '/view'`);
     res.sendFile('public/view.html', { root: __dirname });
+})
+
+app.get('/win', function (req, res) {
+    logwrite.go(`[0.2]: Get request recieved at '/win'`);
+    if (winningToken === req.cookies.CookieToken) {
+        res.send(`Congrats you win! Email LaundryLott@gmail.com with the verification code: "${process.env.WINCODE}" to claim your prize!`)
+    } else {
+        res.send('');
+    }
 })
 
 app.get('/loadView', function (req, res) {

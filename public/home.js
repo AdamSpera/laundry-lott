@@ -12,6 +12,10 @@ $(document).ready(function ($) {
     }, 275);
 });
 
+fetch('/win', { method: 'GET' })
+    .then(response => response.text())
+    .then(text => { textDisplay.innerText = text })
+
 if ((Math.floor(Math.random() * 100) + 1) < 15) {
     textDisplay.innerText = 'Remember to report broken machines by clicking on the footer!';
 }
@@ -29,7 +33,7 @@ document.getElementById('btnStart').addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color='red'; }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red'; }
 
 });
 
@@ -46,7 +50,7 @@ document.getElementById('btnFinish').addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color='red'; }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red'; }
 
 });
 
