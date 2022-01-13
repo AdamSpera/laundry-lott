@@ -54,7 +54,6 @@ app.get('/view', function (req, res) {
 })
 
 app.get('/win', function (req, res) {
-    logwrite.go(`[0.2]: Get request recieved at '/win'`);
     if (winningToken === req.cookies.CookieToken) {
         res.send(`Congrats you win! Email LaundryLott@gmail.com with the verification code: "${process.env.WINCODE}" to claim your prize!`)
     } else {
