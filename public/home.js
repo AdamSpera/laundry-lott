@@ -23,6 +23,7 @@ document.getElementById('btnStart').addEventListener('click', function () {
         || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
 
         btnStart.style.color = 'black';
+        circleText.style.color = 'white';
 
         fetch('/start', { method: 'POST', body: id })
             .then(response => response.text())
@@ -39,6 +40,7 @@ document.getElementById('btnFinish').addEventListener('click', function () {
         || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
 
         btnFinish.style.color = 'black';
+        circleText.style.color = 'white';
 
         fetch('/finish', { method: 'POST', body: id })
             .then(response => response.text())
