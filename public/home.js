@@ -63,3 +63,5 @@ footer.addEventListener('click', function () {
 });
 
 document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });
+
+// Copyright (C) 2022  Adam T Spera

@@ -296,3 +296,5 @@ app.post('/report', (req, res) => {
 
     })
 })
+
+// Copyright (C) 2022  Adam T Spera
