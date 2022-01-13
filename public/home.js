@@ -5,6 +5,7 @@ var btnView = document.getElementById('btnView');
 var textDisplay = document.getElementById('textDisplay');
 var circleText = document.getElementById('circleText');
 var footer = document.getElementById('footer');
+var footerText = document.getElementById('footerText');
 
 $(document).ready(function ($) {
     setTimeout(function () {
@@ -16,8 +17,17 @@ fetch('/win', { method: 'GET' })
     .then(response => response.text())
     .then(text => { textDisplay.innerText = text })
 
-if ((Math.floor(Math.random() * 100) + 1) < 15) {
-    textDisplay.innerText = 'Remember to report broken machines by clicking on the footer!';
+let randomNum = Math.floor(Math.random() * 5);
+switch (randomNum) {
+    case 0:
+        document.getElementById('footerText').innerText = 'Report out of order machines by clicking here!'
+        break;
+    case 1:
+        document.getElementById('footerText').innerText = "Check in on Mondays to see if you've won!"
+        break;
+    case 2:
+        document.getElementById('footerText').innerText = "Accounts are cookies, no personal info needed!"
+        break;
 }
 
 document.getElementById('btnStart').addEventListener('click', function () {
@@ -64,7 +74,7 @@ footer.addEventListener('click', function () {
             .then(response => response.text())
             .then(text => { textDisplay.innerText = text })
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; }
+    } else { textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';}
 
 });
 

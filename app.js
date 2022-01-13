@@ -57,7 +57,6 @@ app.get('/win', function (req, res) {
     if (winningToken === req.cookies.CookieToken) {
         res.send(`Congrats you win! Email LaundryLott@gmail.com with the verification code: "${process.env.WINCODE}" to claim your prize!`)
     } else {
-        res.send('');
     }
 })
 
