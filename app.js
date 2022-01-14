@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 var logwrite = require('logwrite');
 var express = require('express');
 var mysql = require('mysql');
-const { CLIENT_MULTI_RESULTS } = require('mysql/lib/protocol/constants/client');
 var app = express();
 
 let winningToken = 'winningcookie';
