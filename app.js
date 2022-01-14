@@ -16,7 +16,7 @@ var server = app.listen(80, '0.0.0.0', function () {
 
 var connection = mysql.createConnection({
     host: process.env.HOST,
-    user: process.env.USERNAME,
+    user: process.env.MYSQLUSERNAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
