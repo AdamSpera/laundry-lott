@@ -73,7 +73,7 @@ input:focus {
 }
 
 .input-field {
-  max-width: 20%;
+  max-width: 28%;
   background-color: transparent;
   border: none;
   text-align: center;
@@ -88,6 +88,23 @@ input:focus {
 
 .rem-buffer-4{
   margin: 4rem 0;
+}
+
+ul {
+  text-align: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.textA {
+  font-weight: 900;
+}
+.textO {
+  color: #98caff;
+}
+.textDisplay {
+  margin-bottom: 6px;
 }
 
 .footer h4{

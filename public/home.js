@@ -37,50 +37,85 @@ switch (randomNum) {
 
 document.getElementById('btnStart').addEventListener('click', function () {
 
-    let id = machine.value.toUpperCase();
-    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
-        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+    fetch('/getId', { method: 'GET' })
+        .then(response => response.text())
+        .then(text => {
 
-        btnStart.style.color = 'black';
-        circleText.style.color = 'white';
+            let machineIds = text.split(':');
+            machineids = machineIds.pop();
 
-        fetch('/start', { method: 'POST', body: id })
-            .then(response => response.text())
-            .then(text => { textDisplay.innerText = text })
+            for (let i = 0; i < machineIds.length; i++) {
+                if (machineIds[i] == machine.value.toUpperCase()) {
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red'; }
+                    fetch('/start', { method: 'POST', body: machine.value.toUpperCase() })
+                        .then(response => response.text())
+                        .then(text => {
+                            textDisplay.innerText = text
+                            btnStart.style.color = 'black';
+                            circleText.style.color = 'white';
+                        })
+
+                    break;
+                }
+            }
+            textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red';
+        })
 
 });
 
 document.getElementById('btnFinish').addEventListener('click', function () {
 
-    let id = machine.value.toUpperCase();
-    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
-        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+    fetch('/getId', { method: 'GET' })
+        .then(response => response.text())
+        .then(text => {
 
-        btnFinish.style.color = 'black';
-        circleText.style.color = 'white';
+            let machineIds = text.split(':');
+            machineids = machineIds.pop();
 
-        fetch('/finish', { method: 'POST', body: id })
-            .then(response => response.text())
-            .then(text => { textDisplay.innerText = text })
+            for (let i = 0; i < machineIds.length; i++) {
+                if (machineIds[i] == machine.value.toUpperCase()) {
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red'; }
+                    fetch('/finish', { method: 'POST', body: machine.value.toUpperCase() })
+                        .then(response => response.text())
+                        .then(text => {
+                            textDisplay.innerText = text
+                            btnFinish.style.color = 'black';
+                            circleText.style.color = 'white';
+                        })
+
+                    break;
+                }
+            }
+            textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red';
+        })
 
 });
 
 footer.addEventListener('click', function () {
 
-    let id = machine.value.toUpperCase();
-    if (id.length === 1 && (id === 'A' || id === 'B' || id === 'C' || id === 'D' || id === 'E'
-        || id === 'F' || id === 'G' || id === 'H' || id === 'I' || id === 'J')) {
+    fetch('/getId', { method: 'GET' })
+        .then(response => response.text())
+        .then(text => {
 
-        fetch('/report', { method: 'POST', body: id })
-            .then(response => response.text())
-            .then(text => { textDisplay.innerText = text })
+            let machineIds = text.split(':');
+            machineids = machineIds.pop();
 
-    } else { textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';}
+            for (let i = 0; i < machineIds.length; i++) {
+                if (machineIds[i] == machine.value.toUpperCase()) {
 
+                    fetch('/report', { method: 'POST', body: machine.value.toUpperCase() })
+                        .then(response => response.text())
+                        .then(text => {
+                            textDisplay.innerText = text;
+                            circleText.style.color = 'white';
+                        })
+
+                    break;
+                }
+            }
+            textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
+        })
+        
 });
 
 document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });

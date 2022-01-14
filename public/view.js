@@ -1,45 +1,172 @@
 var home = document.getElementById('home')
-var machines = [
-    document.getElementById('machineA'), 
-    document.getElementById('machineB'),
-    document.getElementById('machineC'),
-    document.getElementById('machineD'),
-    document.getElementById('machineE'),
-    document.getElementById('machineF'),
-    document.getElementById('machineG'),
-    document.getElementById('machineH'),
-    document.getElementById('machineI'),
-    document.getElementById('machineJ')
-];
+var list = document.getElementById('list');
+var drop = document.getElementById('drop');
 
 fetch('/loadView', { method: 'GET' })
-.then(response => response.text())
-.then(text => { 
+    .then(response => response.text())
+    .then(text => {
 
-    let viewData = [];
-    let IDs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    for (let i = 0; i < text.length; i++) {
-        if (text[i] === '0') {
-            viewData.push('Available');
-        } else if (text[i] === '1') {
-            viewData.push('In Use');
-        } else if (text[i] === '2') {
-            viewData.push('Out of Order');
-        }
-        machines[i].innerText = `${IDs[i]}: ${viewData[i]}`;
+        let allArray = (text.split('|'));
+        let machineIdsTemp = allArray[0];
+        let machineStatusTemp = allArray[1];
+        let machineIds = machineIdsTemp.split(':');
+        let machineStatus = machineStatusTemp.split(':');
+        let inputText = '';
 
-        if (machines[i].innerText === `${IDs[i]}: Available`) {
-            machines[i].style.fontWeight = "800";
-        } else if (machines[i].innerText === `${IDs[i]}: Out of Order`) {
-            machines[i].style.color = "#dac777";
-        } else if (machines[i].innerText === `${IDs[i]}: In Use`) {
-            machines[i].style.fontWeight = "500";
-        }
+        $("#drop").on('change', function () {
 
-    }
+            while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+            }
 
+            if ($("#drop").val() == "heinz") {
+                for (let i = 0; i < machineIds.length; i++) {
+                    if ((machineIds[i])[0] === "H") {
+                        if ((machineIds[i])[1] === 'W') {
+                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
 
-})
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if ((machineIds[i])[1] === 'D') {
+                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if (machineStatus[i] === 'Available') {
+                            entry.classList.add('textA');
+                        } else if ((machineStatus[i] === 'Out of Order')) {
+                            entry.classList.add('textO');
+                        }
+                        entry.classList.add('textDisplay')
+                    }
+                }
+            } // if heinz
+
+            if ($("#drop").val() == "knight") {
+                for (let i = 0; i < machineIds.length; i++) {
+                    if ((machineIds[i])[0] === "K") {
+                        if ((machineIds[i])[1] === 'W') {
+                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if ((machineIds[i])[1] === 'D') {
+                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if (machineStatus[i] === 'Available') {
+                            entry.classList.add('textA');
+                        } else if ((machineStatus[i] === 'Out of Order')) {
+                            entry.classList.add('textO');
+                        }
+                        entry.classList.add('textDisplay')
+                    }
+                }
+            } // if knight
+
+            if ($("#drop").val() == "thomas") {
+                for (let i = 0; i < machineIds.length; i++) {
+                    if ((machineIds[i])[0] === "T") {
+                        if ((machineIds[i])[1] === 'W') {
+                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if ((machineIds[i])[1] === 'D') {
+                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if (machineStatus[i] === 'Available') {
+                            entry.classList.add('textA');
+                        } else if ((machineStatus[i] === 'Out of Order')) {
+                            entry.classList.add('textO');
+                        }
+                        entry.classList.add('textDisplay')
+                    }
+                }
+            } // if thomas
+
+            if ($("#drop").val() == "kisler") {
+                for (let i = 0; i < machineIds.length; i++) {
+                    if ((machineIds[i])[0] === "I") {
+                        if ((machineIds[i])[1] === 'W') {
+                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if ((machineIds[i])[1] === 'D') {
+                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if (machineStatus[i] === 'Available') {
+                            entry.classList.add('textA');
+                        } else if ((machineStatus[i] === 'Out of Order')) {
+                            entry.classList.add('textO');
+                        }
+                        entry.classList.add('textDisplay')
+                    }
+                }
+            } // if kisler
+
+            if ($("#drop").val() == "dilworth") {
+                for (let i = 0; i < machineIds.length; i++) {
+                    if ((machineIds[i])[0] === "D") {
+                        if ((machineIds[i])[1] === 'W') {
+                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if ((machineIds[i])[1] === 'D') {
+                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            var entry = document.createElement('li');
+                            entry.appendChild(document.createTextNode(inputText));
+                            list.appendChild(entry);
+
+                        }
+                        if (machineStatus[i] === 'Available') {
+                            entry.classList.add('textA');
+                        } else if ((machineStatus[i] === 'Out of Order')) {
+                            entry.classList.add('textO');
+                        }
+                        entry.classList.add('textDisplay')
+                    }
+                }
+            } // if dilworth
+
+        }); // on drop down change
+
+    })
 
 home.addEventListener('click', function () { location.href = '/' });
 
