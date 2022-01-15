@@ -121,8 +121,6 @@ footerOne.addEventListener('click', function () {
                         .then(text => {
                             textDisplay.innerText = text;
                             circleText.style.color = 'white';
-                            footerDivScale.style.display = "block";
-                            footerDivBlock.style.display = "none";
                         })
 
                     break;
@@ -153,8 +151,6 @@ footerTwo.addEventListener('click', function () {
                         .then(text => {
                             textDisplay.innerText = text;
                             circleText.style.color = 'white';
-                            footerDivScale.style.display = "block";
-                            footerDivBlock.style.display = "none";
                         })
 
                     break;
