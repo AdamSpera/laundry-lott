@@ -68,6 +68,7 @@ app.get('/win', function (req, res) {
     if (winningToken === req.cookies.CookieToken) {
         res.send(`Congrats you win! Email LaundryLott@gmail.com with the verification code: "${process.env.WINCODE}" to claim your prize!`)
     } else {
+        res.send();
     }
 })
 
@@ -268,7 +269,7 @@ app.post('/finish', (req, res) => {
                                 res.send('Sorry! Your too late! Come back for another load!');
                             } else if (finalMinutes < 45) {
                                 // too early
-                                logwrite.go('[2.6] [' + body + ']: User checked in too late');
+                                logwrite.go('[2.6] [' + body + ']: User checked in too early');
                                 res.send('Sorry! Your too early! Come back soon!');
                             }
 

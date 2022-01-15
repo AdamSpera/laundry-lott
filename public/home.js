@@ -42,7 +42,7 @@ document.getElementById('btnStart').addEventListener('click', function () {
         .then(text => {
 
             let machineIds = text.split(':');
-            machineids = machineIds.pop();
+            machineIds.pop();
 
             for (let i = 0; i < machineIds.length; i++) {
                 if (machineIds[i] == machine.value.toUpperCase()) {
@@ -56,9 +56,10 @@ document.getElementById('btnStart').addEventListener('click', function () {
                         })
 
                     break;
+                } else if (i == machineIds.length-1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red';
                 }
             }
-            textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red';
         })
 
 });
@@ -70,7 +71,7 @@ document.getElementById('btnFinish').addEventListener('click', function () {
         .then(text => {
 
             let machineIds = text.split(':');
-            machineids = machineIds.pop();
+            machineIds.pop();
 
             for (let i = 0; i < machineIds.length; i++) {
                 if (machineIds[i] == machine.value.toUpperCase()) {
@@ -84,9 +85,10 @@ document.getElementById('btnFinish').addEventListener('click', function () {
                         })
 
                     break;
+                } else if (i == machineIds.length-1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red';
                 }
             }
-            textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red';
         })
 
 });
@@ -98,7 +100,7 @@ footer.addEventListener('click', function () {
         .then(text => {
 
             let machineIds = text.split(':');
-            machineids = machineIds.pop();
+            machineIds.pop();
 
             for (let i = 0; i < machineIds.length; i++) {
                 if (machineIds[i] == machine.value.toUpperCase()) {
@@ -111,11 +113,13 @@ footer.addEventListener('click', function () {
                         })
 
                     break;
+                } else if (i == machineIds.length-1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
                 }
             }
             textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
         })
-        
+
 });
 
 document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });
