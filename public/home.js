@@ -6,6 +6,8 @@ var textDisplay = document.getElementById('textDisplay');
 var circleText = document.getElementById('circleText');
 var footer = document.getElementById('footer');
 var footerText = document.getElementById('footerText');
+var footerDivScale = document.getElementById('footerDivScale');
+var footerDivBlock = document.getElementById('footerDivBlock');
 
 $(document).ready(function ($) {
     setTimeout(function () {
@@ -53,11 +55,15 @@ document.getElementById('btnStart').addEventListener('click', function () {
                             textDisplay.innerText = text
                             btnStart.style.color = 'black';
                             circleText.style.color = 'white';
+                            footerDivScale.style.display = "block";
+                            footerDivBlock.style.display = "none";
                         })
 
                     break;
-                } else if (i == machineIds.length-1) {
-                    textDisplay.innerText = 'Enter a Machine ID above!'; btnStart.style.color = 'red'; circleText.style.color = 'red';
+                } else if (i == machineIds.length - 1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!';
+                    btnStart.style.color = 'red';
+                    circleText.style.color = 'red';
                 }
             }
         })
@@ -82,11 +88,15 @@ document.getElementById('btnFinish').addEventListener('click', function () {
                             textDisplay.innerText = text
                             btnFinish.style.color = 'black';
                             circleText.style.color = 'white';
+                            footerDivScale.style.display = "block";
+                            footerDivBlock.style.display = "none";
                         })
 
                     break;
-                } else if (i == machineIds.length-1) {
-                    textDisplay.innerText = 'Enter a Machine ID above!'; btnFinish.style.color = 'red'; circleText.style.color = 'red';
+                } else if (i == machineIds.length - 1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!';
+                    btnFinish.style.color = 'red';
+                    circleText.style.color = 'red';
                 }
             }
         })
@@ -110,14 +120,17 @@ footer.addEventListener('click', function () {
                         .then(text => {
                             textDisplay.innerText = text;
                             circleText.style.color = 'white';
+                            footerDivScale.style.display = "block";
+                            footerDivBlock.style.display = "none";
                         })
 
                     break;
-                } else if (i == machineIds.length-1) {
+                } else if (i == machineIds.length - 1) {
                     textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
                 }
             }
-            textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
+            textDisplay.innerText = 'Enter a Machine ID above!';
+            circleText.style.color = 'red';
         })
 
 });
