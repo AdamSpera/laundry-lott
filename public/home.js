@@ -4,7 +4,8 @@ var btnFinish = document.getElementById('btnFinish');
 var btnView = document.getElementById('btnView');
 var textDisplay = document.getElementById('textDisplay');
 var circleText = document.getElementById('circleText');
-var footer = document.getElementById('footer');
+var footerOne = document.getElementById('footerOne');
+var footerTwo = document.getElementById('footerTwo');
 var footerText = document.getElementById('footerText');
 var footerDivScale = document.getElementById('footerDivScale');
 var footerDivBlock = document.getElementById('footerDivBlock');
@@ -103,7 +104,39 @@ document.getElementById('btnFinish').addEventListener('click', function () {
 
 });
 
-footer.addEventListener('click', function () {
+footerOne.addEventListener('click', function () {
+
+    fetch('/getId', { method: 'GET' })
+        .then(response => response.text())
+        .then(text => {
+
+            let machineIds = text.split(':');
+            machineIds.pop();
+
+            for (let i = 0; i < machineIds.length; i++) {
+                if (machineIds[i] == machine.value.toUpperCase()) {
+
+                    fetch('/report', { method: 'POST', body: machine.value.toUpperCase() })
+                        .then(response => response.text())
+                        .then(text => {
+                            textDisplay.innerText = text;
+                            circleText.style.color = 'white';
+                            footerDivScale.style.display = "block";
+                            footerDivBlock.style.display = "none";
+                        })
+
+                    break;
+                } else if (i == machineIds.length - 1) {
+                    textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
+                }
+            }
+            textDisplay.innerText = 'Enter a Machine ID above!';
+            circleText.style.color = 'red';
+        })
+
+});
+
+footerTwo.addEventListener('click', function () {
 
     fetch('/getId', { method: 'GET' })
         .then(response => response.text())
