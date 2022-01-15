@@ -1,6 +1,8 @@
 var home = document.getElementById('home')
 var list = document.getElementById('list');
 var drop = document.getElementById('drop');
+var footerDivScale = document.getElementById('footerDivScale');
+var footerDivBlock = document.getElementById('footerDivBlock');
 
 fetch('/loadView', { method: 'GET' })
     .then(response => response.text())
@@ -18,6 +20,9 @@ fetch('/loadView', { method: 'GET' })
             while (list.hasChildNodes()) {
                 list.removeChild(list.firstChild);
             }
+
+            footerDivScale.style.display="block";
+            footerDivBlock.style.display="none";
 
             if ($("#drop").val() == "heinz") {
                 for (let i = 0; i < machineIds.length; i++) {

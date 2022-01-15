@@ -22,54 +22,78 @@
 
 <body>
 
-      <div id="con" class="container">
-        <div class="row justify-content-center">
-          <div class="col-sm-8 col-md-8 col-lg-8 text-center">
-            <img src="default.png" alt="Laundry Lott">
-          </div>
-        </div>
-        <div class="mx-auto text-center">
-
-          <label for="drop" class="text-light">Select a hall: </label>
-          <select name="drop" id="drop">
-            <option disabled selected value></option>
-            <optgroup label="Arcadia University">
-              <option value="heinz">Heinz Hall</option>
-              <option value="knight">Knight Hall</option>
-              <option value="thomas">Thomas Hall</option>
-              <option value="kisler">Kistler Hall</option>
-              <option value="dilworth">Dilworth Hall</option>
-            </optgroup>
-          </select>
-
-          <ul id="list" class="text-light" style="margin-top: 15px; margin-bottom: 10px;">
-
-          </ul>
-
-          <button type="button" class="btn btn-light mx-auto rem-buffer-4" id='home' style="margin-top: 10px;">Back to
-            Home</button>
-
-        </div>
+  <div id="con" class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-8 col-md-8 col-lg-8 text-center">
+        <img src="default.png" alt="Laundry Lott">
       </div>
+    </div>
+    <div class="mx-auto text-center">
 
-      <div class="text-center">
-        <div class="footer" id="footer">
-          <h4 id='footerText'>
-            Powered by
-            <i class="fab fa-js"></i>
-            <i class="fab fa-html5"></i>
-            <i class="fab fa-css3"></i>
-            <i class="fab fa-node-js"></i>
-            made with thought.
-          </h4>
-        </div>
-        <div class="footer2">
-          <h4>
-            &copy;AdamSpera
-          </h4>
-        </div>
-      </div>
-      
+      <label for="drop" class="text-light">Select a hall: </label>
+      <select name="drop" id="drop">
+        <option disabled selected value></option>
+        <optgroup label="Arcadia University">
+          <option value="heinz">Heinz Hall</option>
+          <option value="knight">Knight Hall</option>
+          <option value="thomas">Thomas Hall</option>
+          <option value="kisler">Kistler Hall</option>
+          <option value="dilworth">Dilworth Hall</option>
+        </optgroup>
+      </select>
+
+      <ul id="list" class="text-light" style="margin-top: 15px; margin-bottom: 10px;">
+
+      </ul>
+
+      <button type="button" class="btn btn-light mx-auto rem-buffer-4" id='home'
+        style="margin-top: 10px; margin-bottom: 25px;">Back to
+        Home</button>
+
+    </div>
+  </div>
+
+  <div class="text-center" style="display: none;" id="footerDivScale">
+    <div style="  
+        color: rgb(175, 223, 255);
+        font-size: 0.8em;">
+      <p style="margin-bottom:0px;">
+        Powered by
+        <i class="fab fa-js"></i>
+        <i class="fab fa-html5"></i>
+        <i class="fab fa-css3"></i>
+        <i class="fab fa-node-js"></i>
+        made with thought.
+      </p>
+    </div>
+    <div style="
+        color: rgb(175, 223, 255);
+        font-size: 0.5em;
+        letter-spacing: 0.05rem;">
+      <p style="padding-top: 0px; margin-top: 0px;">
+        &copy;AdamSpera
+      </p>
+    </div>
+  </div>
+
+  <div class="text-center" style="display: block;" id="footerDivBlock">
+    <div class="footer" id="footer">
+      <h4 id='footerText'>
+        Powered by
+        <i class="fab fa-js"></i>
+        <i class="fab fa-html5"></i>
+        <i class="fab fa-css3"></i>
+        <i class="fab fa-node-js"></i>
+        made with thought.
+      </h4>
+    </div>
+    <div class="footer2">
+      <h4>
+        &copy;AdamSpera
+      </h4>
+    </div>
+  </div>
+
   <script src="view.js"></script>
 </body>
 <!-- Copyright (C) 2022  Adam T Spera -->
