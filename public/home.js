@@ -1,3 +1,4 @@
+var defaultImage = document.getElementById('defaultImage');
 var machine = document.getElementById('machine');
 var question = document.getElementById('question');
 var btnStart = document.getElementById('btnStart');
@@ -165,10 +166,10 @@ footerTwo.addEventListener('click', function () {
 
 });
 
-question.addEventListener('click', function () {
-    location.replace('https://laundrylott.com/maps');
-});
+defaultImage.addEventListener('click', function () { location.href = '/about' });
 
-document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });
+question.addEventListener('click', function () { location.href = '/maps' });
+
+btnView.addEventListener('click', function () { location.href = '/view' });
 
 // Copyright (C) 2022  Adam T Spera

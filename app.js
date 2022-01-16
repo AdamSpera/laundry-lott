@@ -56,6 +56,10 @@ app.get('/maps', function (req, res) {
     logwrite.go(`[0.4]: Get request recieved at '/maps'`);
     res.sendFile('public/maps.html', { root: __dirname });
 })
+app.get('/about', function (req, res) {
+    logwrite.go(`[0.5]: Get request recieved at '/about'`);
+    res.sendFile('public/about.html', { root: __dirname });
+})
 
 app.get('/getId', function (req, res) {
     logwrite.go(`[0.2]: Get request recieved at '/getId'`);
