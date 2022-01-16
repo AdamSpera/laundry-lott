@@ -1,4 +1,4 @@
-var home = document.getElementById('home')
+var home = document.getElementById('home');
 var list = document.getElementById('list');
 var drop = document.getElementById('drop');
 var footerDivScale = document.getElementById('footerDivScale');
