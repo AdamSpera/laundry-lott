@@ -1,4 +1,5 @@
 var machine = document.getElementById('machine');
+var question = document.getElementById('question');
 var btnStart = document.getElementById('btnStart');
 var btnFinish = document.getElementById('btnFinish');
 var btnView = document.getElementById('btnView');
@@ -162,6 +163,10 @@ footerTwo.addEventListener('click', function () {
             circleText.style.color = 'red';
         })
 
+});
+
+question.addEventListener('click', function () {
+    location.replace('https://laundrylott.com/maps');
 });
 
 document.getElementById('btnView').addEventListener('click', function () { location.href = '/view' });
