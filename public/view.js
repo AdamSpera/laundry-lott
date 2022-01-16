@@ -21,8 +21,8 @@ fetch('/loadView', { method: 'GET' })
                 list.removeChild(list.firstChild);
             }
 
-            footerDivScale.style.display="block";
-            footerDivBlock.style.display="none";
+            footerDivScale.style.display = "block";
+            footerDivBlock.style.display = "none";
 
             if ($("#drop").val() == "heinz") {
                 for (let i = 0; i < machineIds.length; i++) {
@@ -57,7 +57,16 @@ fetch('/loadView', { method: 'GET' })
                 for (let i = 0; i < machineIds.length; i++) {
                     if ((machineIds[i])[0] === "K") {
                         if ((machineIds[i])[1] === 'W') {
-                            inputText = `Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            if ((machineIds[i])[2] === 'A' || (machineIds[i])[2] === 'B') {
+                                inputText = `(Floor 1) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
+                            if ((machineIds[i])[2] === 'C' || (machineIds[i])[2] === 'D') {
+                                inputText = `(Floor 2) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
+                            if ((machineIds[i])[2] === 'E' || (machineIds[i])[2] === 'F') {
+                                inputText = `(Floor 3) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
 
                             var entry = document.createElement('li');
                             entry.appendChild(document.createTextNode(inputText));
@@ -65,7 +74,16 @@ fetch('/loadView', { method: 'GET' })
 
                         }
                         if ((machineIds[i])[1] === 'D') {
-                            inputText = `Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+
+                            if ((machineIds[i])[2] === 'A' || (machineIds[i])[2] === 'B') {
+                                inputText = `(Floor 1) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
+                            if ((machineIds[i])[2] === 'C' || (machineIds[i])[2] === 'D') {
+                                inputText = `(Floor 2) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
+                            if ((machineIds[i])[2] === 'E' || (machineIds[i])[2] === 'F') {
+                                inputText = `(Floor 3) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                            }
 
                             var entry = document.createElement('li');
                             entry.appendChild(document.createTextNode(inputText));
