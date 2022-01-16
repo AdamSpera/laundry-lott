@@ -11,7 +11,8 @@ $("#drop").on('change', function () {
     } // if heinz
 
     if ($("#drop").val() == "knight") {
-        
+        document.getElementById("img").src="knight.png"
+        document.getElementById("img").style.border="2px solid #555"
     } // if knight
 
     if ($("#drop").val() == "thomas") {
