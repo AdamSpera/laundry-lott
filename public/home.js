@@ -9,6 +9,7 @@ var circleText = document.getElementById('circleText');
 var footerOne = document.getElementById('footerOne');
 var footerTwo = document.getElementById('footerTwo');
 var footerText = document.getElementById('footerText');
+var addiv = document.getElementById('addiv');
 var footerDivScale = document.getElementById('footerDivScale');
 var footerDivBlock = document.getElementById('footerDivBlock');
 
@@ -60,6 +61,7 @@ document.getElementById('btnStart').addEventListener('click', function () {
                             circleText.style.color = 'white';
                             footerDivScale.style.display = "block";
                             footerDivBlock.style.display = "none";
+                            addiv.style.display="block"
                         })
 
                     break;
@@ -93,6 +95,7 @@ document.getElementById('btnFinish').addEventListener('click', function () {
                             circleText.style.color = 'white';
                             footerDivScale.style.display = "block";
                             footerDivBlock.style.display = "none";
+                            addiv.style.display="block"
                         })
 
                     break;
