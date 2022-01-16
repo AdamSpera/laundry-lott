@@ -159,7 +159,7 @@ footerTwo.addEventListener('click', function () {
                     textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
                 }
             }
-            textDisplay.innerText = 'Enter a Machine ID above!';
+            textDisplay.innerText = 'Enter a Machine ID above to report!';
             circleText.style.color = 'red';
         })
 
