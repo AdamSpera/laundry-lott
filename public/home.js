@@ -28,16 +28,13 @@ fetch('/win', { method: 'GET' })
     .then(response => response.text())
     .then(text => { textDisplay.innerText = text })
 
-let randomNum = Math.floor(Math.random() * 5);
+let randomNum = Math.floor(Math.random() * 2);
 switch (randomNum) {
     case 0:
-        document.getElementById('footerText').innerText = 'Report out of order machines by clicking here!'
+        document.getElementById('footerText').innerText = "Report out of order machines by clicking the logo!"
         break;
     case 1:
         document.getElementById('footerText').innerText = "Check in on Mondays to see if you've won!"
-        break;
-    case 2:
-        document.getElementById('footerText').innerText = "Accounts are cookies, no personal info needed!"
         break;
 }
 
@@ -61,7 +58,6 @@ document.getElementById('btnStart').addEventListener('click', function () {
                             circleText.style.color = 'white';
                             footerDivScale.style.display = "block";
                             footerDivBlock.style.display = "none";
-                            addiv.style.display="block"
                         })
 
                     break;
@@ -95,7 +91,6 @@ document.getElementById('btnFinish').addEventListener('click', function () {
                             circleText.style.color = 'white';
                             footerDivScale.style.display = "block";
                             footerDivBlock.style.display = "none";
-                            addiv.style.display="block"
                         })
 
                     break;
@@ -109,37 +104,10 @@ document.getElementById('btnFinish').addEventListener('click', function () {
 
 });
 
-footerOne.addEventListener('click', function () {
+footerOne.addEventListener('click', function () { location.href = '/about' });
+footerTwo.addEventListener('click', function () { location.href = '/about' });
 
-    fetch('/getId', { method: 'GET' })
-        .then(response => response.text())
-        .then(text => {
-
-            let machineIds = text.split(':');
-            machineIds.pop();
-
-            for (let i = 0; i < machineIds.length; i++) {
-                if (machineIds[i] == machine.value.toUpperCase()) {
-
-                    fetch('/report', { method: 'POST', body: machine.value.toUpperCase() })
-                        .then(response => response.text())
-                        .then(text => {
-                            textDisplay.innerText = text;
-                            circleText.style.color = 'white';
-                        })
-
-                    break;
-                } else if (i == machineIds.length - 1) {
-                    textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
-                }
-            }
-            textDisplay.innerText = 'Enter a Machine ID above!';
-            circleText.style.color = 'red';
-        })
-
-});
-
-footerTwo.addEventListener('click', function () {
+defaultImage.addEventListener('click', function () {
 
     fetch('/getId', { method: 'GET' })
         .then(response => response.text())
@@ -168,8 +136,6 @@ footerTwo.addEventListener('click', function () {
         })
 
 });
-
-defaultImage.addEventListener('click', function () { location.href = '/about' });
 
 question.addEventListener('click', function () { location.href = '/maps' });
 

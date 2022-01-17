@@ -76,13 +76,13 @@ fetch('/loadView', { method: 'GET' })
                         if ((machineIds[i])[1] === 'D') {
 
                             if ((machineIds[i])[2] === 'A' || (machineIds[i])[2] === 'B') {
-                                inputText = `(Floor 1) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                                inputText = `(Floor 1) Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
                             }
                             if ((machineIds[i])[2] === 'C' || (machineIds[i])[2] === 'D') {
-                                inputText = `(Floor 2) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                                inputText = `(Floor 2) Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
                             }
                             if ((machineIds[i])[2] === 'E' || (machineIds[i])[2] === 'F') {
-                                inputText = `(Floor 3) Dryer ${(machineIds[i])[2]}: ${machineStatus[i]}`
+                                inputText = `(Floor 3) Washer ${(machineIds[i])[2]}: ${machineStatus[i]}`
                             }
 
                             var entry = document.createElement('li');
