@@ -147,6 +147,7 @@ app.post('/start', (req, res) => {
     let body = ''; req.on('data', function (chunk) { body += chunk; });
     req.on('end', function () {
         logwrite.go(`[1]: Post request recieved at '/start' (${body})`);
+        updateData('startTimes');
 
         let machineId = body;
         body = JSON.stringify((req.cookies.CookieToken)).replace(/['"]+/g, '');
@@ -238,6 +239,7 @@ app.post('/finish', (req, res) => {
     let body = ''; req.on('data', function (chunk) { body += chunk; });
     req.on('end', function () {
         logwrite.go(`[2]: Post request recieved at '/start' (${body})`);
+        updateData('finishTimes');
 
         let machineId = body;
         body = JSON.stringify((req.cookies.CookieToken)).replace(/['"]+/g, '');
