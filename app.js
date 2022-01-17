@@ -39,17 +39,17 @@ var updateData = (type) => {
         if (!!err) {
             logwrite.go('[US]: Error selecting Date');
         } else {
-            logwrite.go('[US]: Success selecting Date');
+            // logwrite.go('[US]: Success selecting Date');
 
             if (result[result.length-1].Date == date) {
-                logwrite.go('[US]: Same date detected updating');
+                // logwrite.go('[US]: Same date detected updating');
 
                 // updates the current day
                 connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `"+type+"` = "+type+" + 1 WHERE Date = '"+date+"'", function (err, result, fields) {
                     if (!!err) {
                         logwrite.go('[hV]: Error adding to '+type+'');
                     } else {
-                        logwrite.go('[hV]: Successfully added '+type+'');
+                        // logwrite.go('[hV]: Successfully added '+type+'');
                     }
                 });
 
@@ -61,7 +61,7 @@ var updateData = (type) => {
                     if (!!err) {
                         logwrite.go('[hV]: Error setting new Date');
                     } else {
-                        logwrite.go('[hV]: Success setting new Date');
+                        // logwrite.go('[hV]: Success setting new Date');
 
                         // runs function again with new day
                         updateData(type);
