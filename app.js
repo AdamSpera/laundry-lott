@@ -29,57 +29,53 @@ connection.connect(function (error) {
     }
 })
 
-var homeVisits = () => {
-    connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `homeVisits` = homeVisits + 1", function (err, result, fields) {
-        if (!!err) {
-            logwrite.go('[hV]: Error adding to homeVisits');
-        } else {
-            logwrite.go('[hV]: Successfully added homeVisits');
-        }
-    });
-}
-var viewVisits = () => {
-    connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `viewVisits` = viewVisits + 1", function (err, result, fields) {
-        if (!!err) {
-            logwrite.go('[vV]: Error adding to viewVisits');
-        } else {
-            logwrite.go('[vV]: Successfully added viewVisits');
-        }
-    });
-}
-var aboutVisits = () => {
-    connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `aboutVisits` = aboutVisits + 1", function (err, result, fields) {
-        if (!!err) {
-            logwrite.go('[aV]: Error adding to aboutVisits');
-        } else {
-            logwrite.go('[aV]: Successfully added aboutVisits');
-        }
-    });
-}
-var mapVisits = () => {
-    connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `mapVisits` = mapVisits + 1", function (err, result, fields) {
-        if (!!err) {
-            logwrite.go('[mV]: Error adding to mapVisits');
-        } else {
-            logwrite.go('[mV]: Successfully added mapVisits');
-        }
-    });
-}
-var reportTimes = () => {
-    connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `reportTimes` = reportTimes + 1", function (err, result, fields) {
-        if (!!err) {
-            logwrite.go('[rT]: Error adding to reportTimes');
-        } else {
-            logwrite.go('[rT]: Successfully added reportTimes');
-        }
-    });
-}
+var updateData = (type) => {
 
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    // gets most recent date
+    connection.query("SELECT Date FROM " + process.env.DATABASE + ".sitedata", function (err, result, field) {
+        if (!!err) {
+            logwrite.go('[US]: Error selecting Date');
+        } else {
+            logwrite.go('[US]: Success selecting Date');
+
+            if (result[result.length-1].Date == date) {
+                logwrite.go('[US]: Same date detected updating');
+
+                // updates the current day
+                connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `"+type+"` = "+type+" + 1 WHERE Date = '"+date+"'", function (err, result, fields) {
+                    if (!!err) {
+                        logwrite.go('[hV]: Error adding to '+type+'');
+                    } else {
+                        logwrite.go('[hV]: Successfully added '+type+'');
+                    }
+                });
+
+            } else {
+                logwrite.go('[US]: Different day detected setting');
+
+                // sets a new day
+                connection.query("INSERT INTO `" + process.env.DATABASE + "`.`sitedata` (`Date`) VALUES ('"+date+"');", function (err, result, field) {
+                    if (!!err) {
+                        logwrite.go('[hV]: Error setting new Date');
+                    } else {
+                        logwrite.go('[hV]: Success setting new Date');
+
+                        // runs function again with new day
+                        updateData(type);
+                    }
+                });
+            }
+        }
+    })
+}
 
 app.get('/', function (req, res) {
     logwrite.go(`[0]: Get request recieved at '/'`);
 
-    homeVisits();
+    updateData('homeVisits');
 
     var today = new Date();
     var date = today.getFullYear() + '.' + (today.getMonth() + 1) + '.' + today.getDate();
@@ -99,17 +95,17 @@ app.get('/', function (req, res) {
 })
 app.get('/view', function (req, res) {
     logwrite.go(`[0.3]: Get request recieved at '/view'`);
-    viewVisits();
+    updateData('viewVisits');
     res.sendFile('public/view.html', { root: __dirname });
 })
 app.get('/maps', function (req, res) {
     logwrite.go(`[0.4]: Get request recieved at '/maps'`);
-    mapVisits();
+    updateData('mapVisits');
     res.sendFile('public/maps.html', { root: __dirname });
 })
 app.get('/about', function (req, res) {
     logwrite.go(`[0.5]: Get request recieved at '/about'`);
-    aboutVisits();
+    updateData('aboutVisits');
     res.sendFile('public/about.html', { root: __dirname });
 })
 
@@ -135,7 +131,7 @@ app.get('/win', function (req, res) {
 app.get('/loadView', function (req, res) {
     logwrite.go(`[0.1]: Get request recieved at '/loadView'`);
 
-    let machineIds = ''; 
+    let machineIds = '';
     let machineStatus = '';
     connection.query('SELECT * FROM `' + process.env.DATABASE + '`.`machinestatus`', function (err, result, fields) {
         for (let i = 0; i < result.length; i++) {
@@ -351,7 +347,7 @@ app.post('/report', (req, res) => {
     let body = ''; req.on('data', function (chunk) { body += chunk; });
     req.on('end', function () {
         logwrite.go(`[3]: Post request recieved at '/report' (${body})`);
-        reportTimes();
+        updateData('reportTimes');
 
         connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Out of Order' WHERE (`ID` = '" + body + "');", function (err, result, fields) {
             if (!!err) {
