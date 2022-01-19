@@ -85,7 +85,7 @@ app.get('/', function (req, res) {
     if (req.cookies.CookieToken) {
         logwrite.go('[/] [' + req.cookies.CookieToken + ']: Cookie Detected');
     } else {
-        logwrite.go('[/]: Cookie Not Detected - Generating Cookie');
+        logwrite.go('[/] [' + dateTime + ']: Cookie Not Detected - Generating Cookie');
         res.cookie(`CookieToken`, `${Math.floor(Math.random() * 999)}${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]}-${dateTime}`, {
             expires: new Date('05 25 2022')
         });
