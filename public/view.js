@@ -1,3 +1,4 @@
+var defaultImage = document.getElementById('defaultImage');
 var home = document.getElementById('home');
 var list = document.getElementById('list');
 var drop = document.getElementById('drop');
@@ -192,5 +193,6 @@ fetch('/loadView', { method: 'GET' })
     })
 
 home.addEventListener('click', function () { location.href = '/' });
+defaultImage.addEventListener('click', function () { location.href = '/' });
 
 // Copyright (C) 2022  Adam T Spera

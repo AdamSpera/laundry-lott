@@ -1,3 +1,4 @@
+var defaultImage = document.getElementById('defaultImage');
 var home = document.getElementById('home');
 var drop = document.getElementById('drop');
 var footerDivScale = document.getElementById('footerDivScale');
@@ -30,3 +31,6 @@ $("#drop").on('change', function () {
 });
 
 home.addEventListener('click', function () { location.href = '/' });
+defaultImage.addEventListener('click', function () { location.href = '/' });
+
+// Copyright (C) 2022  Adam T Spera
