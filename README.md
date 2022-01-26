@@ -3,7 +3,7 @@ Project repository for LaundryLott web app. Powered by JavaScript, mySQL Databas
 
 ## Introduction
 
-With LaundryLott, students enter a lottery for real money every week simply by changing over their laundry on time, and in the process helping colleges and communities by providing live laundry room status updates automatically.
+With LaundryLott, students can help eachother by logging when they start a load and whne they finish. Thsi provides data to teh web app which provides students a live view of Laundry room statistics in teh form of Laundry View.
 
 Utilizing Oracle Cloud and Cloudflare to host the web app, with HTML, CSS, and Bootstrap on front end, and JavaScript, mySQL, Git, and custom Logwrite NPM package in the back end.
 
@@ -42,5 +42,5 @@ Thank you to all these people that served contributions to the LaundryLott proje
 - Guidance and Server Debugging: Vitaly Ford
 
 ######  ______
-###### Contact laundrylott@gmail.com with any questions, concerns, or suggestions. 
+###### Contact adamspera@hotmail.com with any questions, concerns, or suggestions. 
 ###### - Adam Spera
