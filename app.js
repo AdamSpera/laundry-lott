@@ -5,8 +5,6 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 
-let winningToken = 'winningcookie';
-
 app.use(cookieParser());
 
 app.use(express.static('public'));
@@ -41,13 +39,13 @@ var updateData = (type) => {
         } else {
             // logwrite.go('[US]: Success selecting Date');
 
-            if (result[result.length-1].Date == date) {
+            if (result[result.length - 1].Date == date) {
                 // logwrite.go('[US]: Same date detected updating');
 
                 // updates the current day
-                connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `"+type+"` = "+type+" + 1 WHERE Date = '"+date+"'", function (err, result, fields) {
+                connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `" + type + "` = " + type + " + 1 WHERE Date = '" + date + "'", function (err, result, fields) {
                     if (!!err) {
-                        logwrite.go('[hV]: Error adding to '+type+'');
+                        logwrite.go('[hV]: Error adding to ' + type + '');
                     } else {
                         // logwrite.go('[hV]: Successfully added '+type+'');
                     }
@@ -57,7 +55,7 @@ var updateData = (type) => {
                 logwrite.go('[US]: Different day detected setting');
 
                 // sets a new day
-                connection.query("INSERT INTO `" + process.env.DATABASE + "`.`sitedata` (`Date`) VALUES ('"+date+"');", function (err, result, field) {
+                connection.query("INSERT INTO `" + process.env.DATABASE + "`.`sitedata` (`Date`) VALUES ('" + date + "');", function (err, result, field) {
                     if (!!err) {
                         logwrite.go('[hV]: Error setting new Date');
                     } else {
@@ -120,14 +118,6 @@ app.get('/getId', function (req, res) {
     })
 })
 
-app.get('/win', function (req, res) {
-    if (winningToken === req.cookies.CookieToken) {
-        res.send(`Congrats you win! Email normans@arcadia.edu with the verification code: "${process.env.WINCODE}" to claim your prize!`)
-    } else {
-        res.send();
-    }
-})
-
 app.get('/loadView', function (req, res) {
     logwrite.go(`[0.1]: Get request recieved at '/loadView'`);
 
@@ -179,7 +169,7 @@ app.post('/start', (req, res) => {
                                     logwrite.go('[1.4] [' + body + ']: Successful updating machine status');
                                 }
                             });
-                            res.send('Great! Come back in 45-55 minutes to claim your ticket!');
+                            res.send('Great! Come back in 45-55 minutes to get your laundry');
                         }
                     })
 
@@ -187,41 +177,29 @@ app.post('/start', (req, res) => {
                     // existing user
                     logwrite.go('[1.1] [' + body + ']: Existing user detected');
 
-                    // check if tickets < 4
-                    connection.query("SELECT tickets FROM " + process.env.DATABASE + ".userinfo WHERE identifier = '" + body + "'", function (err, result, field) {
-                        if (result[0].tickets === 0 || result[0].tickets === 1 || result[0].tickets === 2 || result[0].tickets === 3) {
-                            // Tickets < 4
+                    var today = new Date();
+                    var time = today.getHours() + ":" + today.getMinutes()
 
-                            var today = new Date();
-                            var time = today.getHours() + ":" + today.getMinutes()
+                    // sets startTime for existing user
+                    connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '" + time + "' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                        if (!!err) {
+                            logwrite.go('[1.3] [' + body + ']: Error updating startTime');
+                            res.send('Sorry! There was a problem updating the time. Try restarting.');
+                        } else {
+                            logwrite.go('[1.3] [' + body + ']: Successful updating startTime');
 
-                            // sets startTime for existing user
-                            connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '" + time + "' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                            // updates machine status to in use
+                            connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                 if (!!err) {
-                                    logwrite.go('[1.3] [' + body + ']: Error updating startTime');
-                                    res.send('Sorry! There was a problem updating the time. Try restarting.');
+                                    logwrite.go('[1.4] [' + body + ']: Error updating machine status');
                                 } else {
-                                    logwrite.go('[1.3] [' + body + ']: Successful updating startTime');
-
-                                    // updates machine status to in use
-                                    connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'In Use' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
-                                        if (!!err) {
-                                            logwrite.go('[1.4] [' + body + ']: Error updating machine status');
-                                        } else {
-                                            logwrite.go('[1.4] [' + body + ']: Successful updating machine status');
-                                        }
-                                    });
-
-                                    res.send('Great! Come back in 45-55 minutes to claim your ticket!');
+                                    logwrite.go('[1.4] [' + body + ']: Successful updating machine status');
                                 }
                             });
 
-                        } else {
-                            //Tickets > 4
-                            logwrite.go('[1.3] [' + body + ']: Tickets over 4')
-                            res.send('Woah Woah! You already got 4 tickets this week. Come back next week for more!')
+                            res.send('Great! Come back in 45-55 minutes to get your laundry!');
                         }
-                    })
+                    });
 
                 }
             })
@@ -288,34 +266,27 @@ app.post('/finish', (req, res) => {
                             if (finalMinutes >= 45 && finalMinutes <= 55) {
                                 logwrite.go('[2.6] [' + body + ']: User checked in on time');
                                 //made it on time
-                                connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `tickets` = tickets + 1 WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+
+                                connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
                                     if (!!err) {
-                                        logwrite.go('[2.4] [' + body + ']: Error adding to tickets');
+                                        logwrite.go('[2.4] [' + body + ']: Error removing startTime');
                                     } else {
-                                        logwrite.go('[2.4] [' + body + ']: Successful added ticket');
-                                        // removing startTime
-                                        connection.query("UPDATE `" + process.env.DATABASE + "`.`userinfo` SET `startTime` = '' WHERE (`identifier` = '" + body + "');", function (err, result, fields) {
+                                        logwrite.go('[2.4] [' + body + ']: Successful remove startTime');
+                                        // updates machine status to in use
+                                        connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                             if (!!err) {
-                                                logwrite.go('[2.4] [' + body + ']: Error removing startTime');
+                                                logwrite.go('[2.5] [' + body + ']: Error updating machine status');
                                             } else {
-                                                logwrite.go('[2.4] [' + body + ']: Successful remove startTime');
-                                                // updates machine status to in use
-                                                connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
-                                                    if (!!err) {
-                                                        logwrite.go('[2.5] [' + body + ']: Error updating machine status');
-                                                    } else {
-                                                        logwrite.go('[2.5] [' + body + ']: Successful updating machine status');
-                                                    }
-                                                });
+                                                logwrite.go('[2.5] [' + body + ']: Successful updating machine status');
                                             }
                                         });
                                     }
                                 });
-                                res.send("Amazing! Right on time! You've earned a ticket! Lets earn some more now");
+
+                                res.send("Amazing! Right on time!");
                             } else if (finalMinutes > 55) {
                                 // user is too late
 
-                                // updates machine status to in use
                                 connection.query("UPDATE `" + process.env.DATABASE + "`.`machinestatus` SET `Status` = 'Available' WHERE (`ID` = '" + machineId + "');", function (err, result, fields) {
                                     if (!!err) {
                                         logwrite.go('[2.6] [' + body + ']: Error updating machine status');
