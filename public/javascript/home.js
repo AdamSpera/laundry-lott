@@ -30,7 +30,7 @@ switch (randomNum) {
         document.getElementById('footerText').innerText = "Report out of order machines by clicking the logo!"
         break;
     case 1:
-        document.getElementById('footerText').innerText = "Check in on Mondays to see if you've won!"
+        document.getElementById('footerText').innerText = "Report out of order machines by clicking the logo!"
         break;
 }
 
