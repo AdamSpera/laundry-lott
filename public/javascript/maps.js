@@ -7,12 +7,12 @@ var footerDivBlock = document.getElementById('footerDivBlock');
 $("#drop").on('change', function () {
 
     if ($("#drop").val() == "heinz") {
-        document.getElementById("img").src="heinz.png"
+        document.getElementById("img").src="images/heinz.png"
         document.getElementById("img").style.border="2px solid #555"
     } // if heinz
 
     if ($("#drop").val() == "knight") {
-        document.getElementById("img").src="knight.png"
+        document.getElementById("img").src="images/knight.png"
         document.getElementById("img").style.border="2px solid #555"
     } // if knight
 
