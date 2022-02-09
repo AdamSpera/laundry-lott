@@ -24,10 +24,6 @@ const urlParams = new URLSearchParams(queryString);
 const machineId = urlParams.get('id');
 document.getElementById('machine').value = machineId;
 
-fetch('/win', { method: 'GET' })
-    .then(response => response.text())
-    .then(text => { textDisplay.innerText = text })
-
 let randomNum = Math.floor(Math.random() * 2);
 switch (randomNum) {
     case 0:
