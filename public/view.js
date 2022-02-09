@@ -195,4 +195,4 @@ fetch('/loadView', { method: 'GET' })
 home.addEventListener('click', function () { location.href = '/' });
 defaultImage.addEventListener('click', function () { location.href = '/' });
 
-// Copyright (C) 2022  Adam T Spera
+// Copyright (C) 2022  Adam T Spera 

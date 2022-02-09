@@ -137,4 +137,4 @@ question.addEventListener('click', function () { location.href = '/maps' });
 
 btnView.addEventListener('click', function () { location.href = '/view' });
 
-// Copyright (C) 2022  Adam T Spera
+// Copyright (C) 2022  Adam T Spera 
