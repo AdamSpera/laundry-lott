@@ -31,72 +31,192 @@
     </div>
     <div class="mx-auto text-center">
 
-      <label for="drop" class="text-light">Select a hall: </label>
-      <select name="drop" id="drop">
-        <option disabled selected value></option>
-        <optgroup label="Arcadia University">
-          <option value="heinz">Heinz Hall</option>
-          <option value="knight">Knight Hall</option>
-          <!-- <option value="thomas">Thomas Hall</option>
-          <option value="kisler">Kistler Hall</option>
-          <option value="dilworth">Dilworth Hall</option> -->
-        </optgroup>
-      </select>
+      <div class="select-div">
+        <label for="drop" class="text-light">Select a hall: </label>
+        <select name="drop" id="drop">
+          <option disabled selected value></option>
+          <optgroup label="Arcadia University">
+            <option value="heinz">Heinz Hall</option>
+            <option value="knight">Knight Hall</option>
+            <!-- <option value="thomas">Thomas Hall</option>
+            <option value="kisler">Kistler Hall</option>
+            <option value="dilworth">Dilworth Hall</option> -->
+          </optgroup>
+        </select>
+      </div>
 
-      <ul id="list" class="text-light" style="margin-top: 15px; margin-bottom: 10px;">
+      <div id="heinzDiv" style="display: none;">
+        <table style="background-color: white; font-size: 0.75rem; width: 100%;">
+          <tr>
+            <td id="HWD">
+              <p>HWD</p>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="HWC">
+              <p>HWC</p>
+            </td>
+            <td id="HWB">
+              <p>HWB</p>
+            </td>
+            <td id="HWA">
+              <p>HWA</p>
+            </td>
+          </tr>
+          <tr>
+            <td id="HWE">
+              <p>HWE</p>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td id="HWF">
+              <p>HWF</p>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td id="HDA">
+              <p>HDA</p>
+            </td>
+            <td id="HDB">
+              <p>HDB</p>
+            </td>
+            <td id="HDC">
+              <p>HDC</p>
+            </td>
+            <td id="HDD">
+              <p>HDD</p>
+            </td>
+            <td id="HDE">
+              <p>HDE</p>
+            </td>
+            <td id="HDF">
+              <p>HDF</p>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-      </ul>
+      <div id="knightDiv" style="display: none;">
+        <table style="background-color: white; font-size: 0.75rem; width: 80%; margin: 1rem auto;">
+          <tr>
+            <th><p>Floor 2</p></th>
+            <th></th>
+            <th><p>Floor 3</p></th>
+            <th></th>
+            <th><p>Floor 4</p></th>
+          </tr>
+          <tr>
+            <td id="KDB"><p>KDB</p></td>
+            <td></td>
+            <td id="KDD"><p>KDD</p></td>
+            <td></td>
+            <td id="KDF"><p>KDF</p></td>
+          </tr>
+          <tr>
+            <td id="KDA"><p>KDA</p></td>
+            <td></td>
+            <td id="KDC"><p>KDC</p></td>
+            <td></td>
+            <td id="KDE"><p>KDE</p></td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem"></td>
+          </tr>
+          <tr>
+            <td id="KWB"><p>KWB</p></td>
+            <td></td>
+            <td id="KWD"><p>KWD</p></td>
+            <td></td>
+            <td id="KWF"><p>KWF</p></td>
+          </tr>
+          <tr>
+            <td id="KWA"><p>KWA</p></td>
+            <td></td>
+            <td id="KWC"><p>KWC</p></td>
+            <td></td>
+            <td id="KWE"><p>KWE</p></td>
+          </tr>
+        </table>
+      </div>
+      <div id="keyDiv" style="display: none">
+        <div
+          style="background-color:rgb(0, 156, 0); color: white; text-align: center; width: 35%; border-radius: 20px; margin: 0 auto; margin-top: 2rem; margin-bottom: 0.25rem;">
+          <p style="padding: 5px;">Available</p>
+        </div>
+        <div
+          style="background-color:rgb(230, 176, 2); color: white; text-align: center; width: 35%; border-radius: 20px; margin: 0.25rem auto">
+          <p style="padding: 5px;">In Use</p>
+        </div>
+        <div
+          style="background-color:rgb(107, 107, 107); color: white; text-align: center; width: 35%; border-radius: 20px; margin: 0.25 auto">
+          <p style="padding: 5px;">Out of Order</p>
+        </div>
+      </div>
 
       <button type="button" class="btn btn-light mx-auto rem-buffer-4" id='home'
         style="margin-top: 10px; margin-bottom: 25px;">Back to
         Home</button>
 
+      </div?>
     </div>
-  </div>
 
-  <div class="text-center" style="display: none;" id="footerDivScale">
-    <div style="  
+    <div class="text-center" style="display: none;" id="footerDivScale">
+      <div style="  
         color: rgb(175, 223, 255);
         font-size: 0.8em;">
-      <p style="margin-bottom:0px;">
-        Powered by
-        <i class="fab fa-js"></i>
-        <i class="fab fa-html5"></i>
-        <i class="fab fa-css3"></i>
-        <i class="fab fa-node-js"></i>
-        made with thought.
-      </p>
-    </div>
-    <div style="
+        <p style="margin-bottom:0px;">
+          Powered by
+          <i class="fab fa-js"></i>
+          <i class="fab fa-html5"></i>
+          <i class="fab fa-css3"></i>
+          <i class="fab fa-node-js"></i>
+          made with thought.
+        </p>
+      </div>
+      <div style="
         color: rgb(175, 223, 255);
         font-size: 0.5em;
         letter-spacing: 0.05rem;">
-      <p style="padding-top: 0px; margin-top: 0px;">
-        &copy;AdamSpera
-      </p>
+        <p style="padding-top: 0px; margin-top: 0px;">
+          Click here for about page! &copy;AS-GPL-3.0
+        </p>
+      </div>
     </div>
-  </div>
 
-  <div class="text-center" style="display: block;" id="footerDivBlock">
-    <div class="footer" id="footer">
-      <h4 id='footerText'>
-        Powered by
-        <i class="fab fa-js"></i>
-        <i class="fab fa-html5"></i>
-        <i class="fab fa-css3"></i>
-        <i class="fab fa-node-js"></i>
-        made with thought.
-      </h4>
+    <div class="text-center" style="display: block;" id="footerDivBlock">
+      <div class="footer" id="footer">
+        <h4 id='footerText'>
+          Powered by
+          <i class="fab fa-js"></i>
+          <i class="fab fa-html5"></i>
+          <i class="fab fa-css3"></i>
+          <i class="fab fa-node-js"></i>
+          made with thought.
+        </h4>
+      </div>
+      <div class="footer2">
+        <h4>
+          Click here for about page! &copy;AS-GPL-3.0
+        </h4>
+      </div>
     </div>
-    <div class="footer2">
-      <h4>
-        &copy;AS-GPL-3.0
-      </h4>
-    </div>
-  </div>
 
-  <script src="javascript/view.js"></script>
+    <script src="javascript/view.js"></script>
 </body>
-<!-- Copyright (C) 2022  Adam T Spera --> 
+<!-- Copyright (C) 2022  Adam T Spera
 
 </html>

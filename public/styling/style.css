@@ -107,6 +107,37 @@ ul {
   margin-bottom: 6px;
 }
 
+.select-div {
+  margin: 0.5rem 0;
+}
+
+table {
+  border: 5px solid white;
+  box-shadow: 0 0 10px 2px white;
+}
+
+td > p{
+  font-weight: bold;
+  text-align: center;
+  margin: auto 0;
+  padding: 0.75rem 0;
+}
+
+td {
+  border: 1px solid black;
+}
+
+td:empty {
+  border: none;
+}
+
+th {
+  text-align: center; 
+  text-align: center;
+  margin: auto 0;
+  padding: 0.50rem 0;
+}
+
 .footer h4{
   color: rgb(175, 223, 255);
   position:fixed;

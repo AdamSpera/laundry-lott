@@ -1,6 +1,5 @@
 var defaultImage = document.getElementById('defaultImage');
 var machine = document.getElementById('machine');
-var question = document.getElementById('question');
 var btnStart = document.getElementById('btnStart');
 var btnFinish = document.getElementById('btnFinish');
 var btnView = document.getElementById('btnView');
@@ -132,8 +131,6 @@ defaultImage.addEventListener('click', function () {
         })
 
 });
-
-question.addEventListener('click', function () { location.href = '/maps' });
 
 btnView.addEventListener('click', function () { location.href = '/view' });
 
