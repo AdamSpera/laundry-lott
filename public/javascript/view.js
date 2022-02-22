@@ -5,8 +5,8 @@ var drop = document.getElementById('drop');
 var keyDiv = document.getElementById('keyDiv');
 var heinzDiv = document.getElementById('heinzDiv');
 var knightDiv = document.getElementById('knightDiv');
-var footerDivScale = document.getElementById('footerDivScale');
-var footerDivBlock = document.getElementById('footerDivBlock');
+var footerOne = document.getElementById('footerOne');
+var footerTwo = document.getElementById('footerTwo');
 var HWA = document.getElementById('HWA');
 var HWB = document.getElementById('HWB');
 var HWC = document.getElementById('HWC');
@@ -46,6 +46,8 @@ fetch('/loadView', { method: 'GET' })
         $("#drop").on('change', function () {
 
             keyDiv.style.display = 'block';
+            footerOne.style.display = 'none';
+            footerTwo.style.display = 'block';
 
             if ($("#drop").val() == "heinz") {
                 heinzDiv.style.display = 'block';
@@ -200,7 +202,7 @@ fetch('/loadView', { method: 'GET' })
             if ($("#drop").val() == "knight") {
                 heinzDiv.style.display = 'none';
                 knightDiv.style.display = 'block';
-            
+
                 // KDA
                 if (machineStatus[12] == 'Available') {
                     KDA.style.backgroundColor = 'rgb(0, 156, 0)';
@@ -346,14 +348,14 @@ fetch('/loadView', { method: 'GET' })
                 }
 
             }
-           
+
         }); // on drop down change
 
     })
 
 home.addEventListener('click', function () { location.href = '/' });
 defaultImage.addEventListener('click', function () { location.href = '/' });
-footerDivBlock.addEventListener('click', function () { location.href = '/about' });
-footerDivScale.addEventListener('click', function () { location.href = '/about' });
+footerOne.addEventListener('click', function () { location.href = '/about' });
+footerTwo.addEventListener('click', function () { location.href = '/about' });
 
 // Copyright (C) 2022  Adam T Spera
