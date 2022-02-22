@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 var logwrite = require('logwrite');
 var express = require('express');
 var mysql = require('mysql');
+const res = require('express/lib/response');
 var app = express();
 
 app.use(cookieParser());
@@ -32,42 +33,42 @@ var updateData = (type) => {
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-    // gets most recent date
-    connection.query("SELECT Date FROM " + process.env.DATABASE + ".sitedata", function (err, result, field) {
-        if (!!err) {
-            logwrite.go('[US]: Error selecting Date');
+    connection.query("SELECT Date FROM " + process.env.DATABASE + ".sitedata", function (error, result, field) {
+        if (!!error) {
+            console.log(`Error selecting date`);
         } else {
-            // logwrite.go('[US]: Success selecting Date');
 
-            if (result[result.length - 1].Date == date) {
-                // logwrite.go('[US]: Same date detected updating');
+            let exist = false;
+            // for every date result
+            for (i = 0; i < result.length; i++) {
+                // checks if date already exists
+                if (result[i].Date == date) {
+                    exist = true; break;
+                }
+            }
 
-                // updates the current day
-                connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `" + type + "` = " + type + " + 1 WHERE Date = '" + date + "'", function (err, result, fields) {
-                    if (!!err) {
-                        logwrite.go('[hV]: Error adding to ' + type + '');
+            if (exist) {
+                // date already in database
+                connection.query("UPDATE `" + process.env.DATABASE + "`.`sitedata` SET `" + type + "` = " + type + " + 1 WHERE Date = '" + date + "'", function (error, result, fields) {
+                    if (!!error) {
+                        console.log(`Error updating ${type} where date equals ${date}`);
                     } else {
-                        // logwrite.go('[hV]: Successfully added '+type+'');
+                        console.log(`Successfully updated ${type} where date equals ${date}`);
                     }
                 });
-
             } else {
-                logwrite.go('[US]: Different day detected setting');
-
-                // sets a new day
-                connection.query("INSERT INTO `" + process.env.DATABASE + "`.`sitedata` (`Date`) VALUES ('" + date + "');", function (err, result, field) {
-                    if (!!err) {
-                        logwrite.go('[hV]: Error setting new Date');
+                // date not in database
+                connection.query("INSERT INTO `" + process.env.DATABASE + "`.`sitedata` (`Date`) VALUES ('" + date + "');", function (error, result, field) {
+                    if (!!error) {
+                        console.log(`Error inserting new date ${date}`);
                     } else {
-                        // logwrite.go('[hV]: Success setting new Date');
-
-                        // runs function again with new day
+                        console.log(`Successfully inserted new date ${date}`);
                         updateData(type);
                     }
                 });
             }
         }
-    })
+    });
 }
 
 app.get('/', function (req, res) {
@@ -157,7 +158,7 @@ app.post('/finish', (req, res) => {
                     logwrite.go('[2.5] [' + body + ']: Successful updating machine status');
                 }
             });
-            
+
             res.send("Finish Confirmed!");
         } else {
             res.send("Finish Update Failed");
