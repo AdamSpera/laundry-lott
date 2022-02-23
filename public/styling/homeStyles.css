@@ -1,0 +1,103 @@
+* {
+  font-family: "Monsteratt", sans-serif;
+}
+
+body{
+  background-color: #51A4FB;
+  padding: 0;
+  margin: 0;
+  display: flex; 
+  flex-direction: column;
+  margin: 0;
+}
+
+.logo {
+  width: 40%;
+  height: auto;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: none;
+  height: 100vh;
+  max-height: -webkit-fill-available;
+}
+
+.button-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.errorText {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin: 1rem;
+}
+
+.inputID {
+  padding: 1rem;
+  border: 1.5px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  margin: 0.25rem;
+  width: 70%;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
+  box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.5);
+}
+
+.btn {
+  width: 60%;
+  border: 1px solid white;
+  background-color: white;
+  font-weight: bold;
+  color: #51A4FB;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.5);
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  color: rgba(255,255,255, 0.3);
+  font-size: 0.75rem;
+  margin-top: auto;
+}
+
+.footer > h4 {
+  margin: 0.25rem 0;
+}

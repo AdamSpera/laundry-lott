@@ -28,9 +28,6 @@ switch (randomNum) {
     case 0:
         document.getElementById('footerText').innerText = "Report out of order machines by clicking the logo!"
         break;
-    case 1:
-        document.getElementById('footerText').innerText = "Report out of order machines by clicking the logo!"
-        break;
 }
 
 document.getElementById('btnStart').addEventListener('click', function () {
@@ -49,17 +46,14 @@ document.getElementById('btnStart').addEventListener('click', function () {
                         .then(response => response.text())
                         .then(text => {
                             textDisplay.innerText = text
-                            btnStart.style.color = 'black';
-                            circleText.style.color = 'white';
-                            footerDivScale.style.display = "block";
-                            footerDivBlock.style.display = "none";
+                            btnStart.style.color = '#51A4FB';
+                            btnFinish.style.color = '#51A4FB';
                         })
 
                     break;
                 } else if (i == machineIds.length - 1) {
                     textDisplay.innerText = 'Enter a Machine ID above!';
                     btnStart.style.color = 'red';
-                    circleText.style.color = 'red';
                 }
             }
         })
@@ -82,24 +76,20 @@ document.getElementById('btnFinish').addEventListener('click', function () {
                         .then(response => response.text())
                         .then(text => {
                             textDisplay.innerText = text
-                            btnFinish.style.color = 'black';
-                            circleText.style.color = 'white';
-                            footerDivScale.style.display = "block";
-                            footerDivBlock.style.display = "none";
+                            btnStart.style.color = '#51A4FB';
+                            btnFinish.style.color = '#51A4FB';
                         })
 
                     break;
                 } else if (i == machineIds.length - 1) {
                     textDisplay.innerText = 'Enter a Machine ID above!';
                     btnFinish.style.color = 'red';
-                    circleText.style.color = 'red';
                 }
             }
         })
 
 });
 
-footerOne.addEventListener('click', function () { location.href = '/about' });
 footerTwo.addEventListener('click', function () { location.href = '/about' });
 
 defaultImage.addEventListener('click', function () {
@@ -118,16 +108,14 @@ defaultImage.addEventListener('click', function () {
                         .then(response => response.text())
                         .then(text => {
                             textDisplay.innerText = text;
-                            circleText.style.color = 'white';
                         })
 
                     break;
                 } else if (i == machineIds.length - 1) {
-                    textDisplay.innerText = 'Enter a Machine ID above!'; circleText.style.color = 'red';
+                    textDisplay.innerText = 'Enter a Machine ID above!';
                 }
             }
             textDisplay.innerText = 'Enter a Machine ID above to report!';
-            circleText.style.color = 'red';
         })
 
 });
