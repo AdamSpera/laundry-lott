@@ -7,6 +7,8 @@ var heinzDiv = document.getElementById('heinzDiv');
 var knightDiv = document.getElementById('knightDiv');
 var footerOne = document.getElementById('footerOne');
 var footerTwo = document.getElementById('footerTwo');
+var washersAvailable = document.getElementById('washersAvailable');
+var dryersAvailable = document.getElementById('dryersAvailable');
 var HWA = document.getElementById('HWA');
 var HWB = document.getElementById('HWB');
 var HWC = document.getElementById('HWC');
@@ -52,6 +54,29 @@ fetch('/loadView', { method: 'GET' })
             if ($("#drop").val() == "heinz") {
                 heinzDiv.style.display = 'block';
                 knightDiv.style.display = 'none';
+
+                let washers = 0;
+                let dryers = 0;
+
+                for (i = 0; i < machineStatus.length; i++) {
+                    if (i <= 12) {
+                        // if heinz 
+                        if (i < 6) {
+                            // if heinz dryers
+                            if (machineStatus[i] == 'Available') {
+                                dryers++;
+                            }
+                        } else if (i < 12) {
+                            // if heinz washers
+                            if (machineStatus[i] == 'Available') {
+                                washers++;
+                            }
+                        }
+                    }
+                }
+
+                washersAvailable.innerText = `Washers Available: ${washers}`;
+                dryersAvailable.innerText = `Dryers Available: ${dryers}`;
 
                 // HDA
                 if (machineStatus[0] == 'Available') {
@@ -202,6 +227,29 @@ fetch('/loadView', { method: 'GET' })
             if ($("#drop").val() == "knight") {
                 heinzDiv.style.display = 'none';
                 knightDiv.style.display = 'block';
+
+                let washers = 0;
+                let dryers = 0;
+
+                for (i = 0; i < machineStatus.length; i++) {
+                    if (i >= 12) {
+                        // if heinz 
+                        if (i < 18) {
+                            // if heinz dryers
+                            if (machineStatus[i] == 'Available') {
+                                dryers++;
+                            }
+                        } else if (i <=24) {
+                            // if heinz washers
+                            if (machineStatus[i] == 'Available') {
+                                washers++;
+                            }
+                        }
+                    }
+                }
+
+                washersAvailable.innerText = `Washers Available: ${washers}`;
+                dryersAvailable.innerText = `Dryers Available: ${dryers}`;
 
                 // KDA
                 if (machineStatus[12] == 'Available') {
