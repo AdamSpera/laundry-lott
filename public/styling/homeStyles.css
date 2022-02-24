@@ -12,17 +12,19 @@ body{
 }
 
 .logo {
-  width: 40%;
+  margin: 0 auto;
+  width: 60%;
+  max-width: 500px;
   height: auto;
 }
 
 .container {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  max-width: 500px;
+  width: 100%;
   margin: 0 auto;
   overflow: none;
   height: 100vh;
@@ -96,6 +98,7 @@ input:focus, textarea:focus, select:focus{
   color: rgba(255,255,255, 0.3);
   font-size: 0.75rem;
   margin-top: auto;
+  margin-bottom: 0.5rem;
 }
 
 .footer > h4 {
