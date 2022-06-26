@@ -1,179 +1,107 @@
-* {
-  font-family: 'Montserrat', sans-serif;
-}
-
-body{
-  margin: 0px;
-  background-color: #51A4FB;
-  overflow-y: scroll;
-}
-
-hr {
-  color: white;
-  border: 2px solid white;
-  border-radius: 5px;
-  margin: 0px;
-}
-
-img {
-  max-width: 50%;
-  height: auto;
-}
-
-input:focus {
-  outline: none;
-}
-
-#btnStart, #btnFinish {
-  display: inline-block;
-  width: 49%;
-}
-
-#btnView {
-  margin-top: 0.5rem;
-  width: 100%;
-}
-
-.btn-container{
-  width: 80%;
-  margin: 3rem 0;
-}
-
-.trans--grow{
-  -webkit-transition: all 2s ease-in-out; /* For Safari 3.1 to 6.0 */
-  transition: all 2s  ease-in-out;
-  width : 0;
-}
-
-.grow {
-  width: 80%;
-}
-
-.circle {
-  width: 50%;
-  height: 0;
-  color: #fff;
+body {
   text-align: center;
-  line-height: 0;
-  padding: 25% 0;
-  border-radius: 50%;
-  background: #09f;
+  font-family: 'Lato', sans-serif;
 }
 
-.inside-circle{
-  width: 90%;
-  height: auto;
-  font-size: 20px;
-  color: #fff;
-  text-align: center;
-  line-height: 0;
-  padding: 29% 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.input-field {
-  max-width: 28%;
-  background-color: transparent;
-  border: none;
-  text-align: center;
-  color: white;
-  font-size: 1rem;
-  border-bottom: 1px solid white;
-}
-
-.rem-buffer-3{
-  margin: 3rem 0;
-}
-
-.rem-buffer-4{
-  margin: 4rem 0;
-}
-
-ul {
-  text-align: center;
-  list-style-type: none;
+.no-padding {
   padding: 0;
   margin: 0;
 }
 
-.textA {
-  font-weight: 900;
-}
-.textO {
-  color: #98caff;
-}
-.textDisplay {
-  margin-bottom: 6px;
+.topnav {
+  padding-top: 1vh;
 }
 
-.select-div {
-  margin: 0.5rem 0;
+.link {
+  color: #51A4FB;
+  text-decoration: none;
 }
 
-table {
-  border: 5px solid white;
-  box-shadow: 0 0 10px 2px white;
-}
 
-td > p{
-  font-weight: bold;
-  text-align: center;
-  margin: auto 0;
-  padding: 0.75rem 0;
-}
 
-td {
-  border: 1px solid black;
-}
 
-td:empty {
-  border: none;
-}
-
-th {
-  text-align: center; 
-  text-align: center;
-  margin: auto 0;
-  padding: 0.50rem 0;
-}
-
-.footer h4{
-  color: rgb(175, 223, 255);
-  position:fixed;
-  left:0px;
-  bottom:20px;
-  right:0px;
-  margin-bottom: 0.25rem;
-  font-size: 0.8em;
-}
-
-.footer2 h4{
-  color: rgb(175, 223, 255);
-  position:fixed;
-  left:0px;
-  bottom:10px;
-  right:0px;
-  margin-bottom:0px;
-  font-size: 0.5em;
-  letter-spacing: 0.05rem;
-}
-
-.footer a {
-  color: rgb(175, 223, 255);
-}
-
-.footer2 a {
-  color: rgb(175, 223, 255);
-}
-
-#page-container {
-  position: relative;
-  min-height: 100vh;
-}
-
-#content-wrap {
-  padding-bottom: 2.5rem;
-}
-
-/* Copyright (C) 2022  Adam T Spera */ 
+:root {
+  --primary-color: #D96AA7;
+  --secondary-color: #422C73;
+  --complimentary-color: #88BFB5;
+  --contrast-color: #F2E527;
+  --light-color: #D2A9D9;
+  }
+  
+  .container {
+    background: #191919;
+    min-height: 100vh;
+    font-family: Montserrat, sans-serif;
+  }
+  
+  nav a {
+      font-size: 40px;
+      color: #fff;
+      text-decoration: none;
+      padding: 20px;
+      text-align: center;
+  }
+  
+  nav {
+      position: fixed;
+      left: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--secondary-color);
+  }
+  
+  section {
+      position: absolute;
+      top: 0;
+      height: 100vh;
+      width: 0;
+      opacity: 0;
+      transition: all ease-in .5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  } 
+  
+  section h1 {
+      color: #fff;
+      font-size: 50px;
+      text-transform: uppercase;
+      opacity: 0;
+  }
+  
+  /* Styles applied on trigger */
+  section:target {
+      opacity: 1;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+  }
+  
+  section:target h1 {
+      opacity: 0;
+      animation: 2s fadeIn forwards .5s;
+  }
+  
+  #first {
+    background:var(--primary-color);
+  }
+  #second {
+      background: var(--complimentary-color);
+  }
+  
+  #third {
+      background: var(--contrast-color);
+  }
+  
+  #fourth {
+      background: var(--light-color);
+  }
+  
+  @keyframes fadeIn {
+      100% { opacity:1 }
+  }
